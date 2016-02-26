@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/mudrd8mz/moodle-editor_marklar.png?label=ready&title=Ready)](https://waffle.io/mudrd8mz/moodle-editor_marklar)
 Marklar - markdown friendly editor for Moodle
 =============================================
 
