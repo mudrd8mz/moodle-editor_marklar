@@ -25,4 +25,5 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['insertimage'] = 'Insert image';
 $string['pluginname'] = 'Marklar';

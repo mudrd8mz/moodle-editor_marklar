@@ -80,5 +80,14 @@ class marklar_texteditor extends texteditor {
      * @return void
      */
     public function use_editor($elementid, array $options=null, $fpoptions = null) {
+        global $PAGE;
+
+        $initparams = [
+            'elementid' => $elementid,
+            'contextid' => empty($options['context']) ? $PAGE->context->id : $options['context']->id,
+            'filepickeroptions' => empty($fpoptions) ? [] : $fpoptions,
+        ];
+
+        $PAGE->requires->js_call_amd('editor_marklar/editor', 'init', [$initparams]);
     }
 }
