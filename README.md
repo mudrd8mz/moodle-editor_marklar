@@ -23,7 +23,7 @@ Here are intentional features of the Marklar editor, just to make it clear they
 are not bugs.
 
 * Marklar is WYTIWYG - what you type is what you get (done).
-* Marklar does not have buttons. Mardown syntax is to be typed manually (done).
+* Marklar does not have buttons. Markdown syntax is to be typed manually (done).
 * Marklar is not extensible via sub-plugins (done).
 * Marklar sets markdown as the preferred format for new texts (done).
 * Marklar is not used when editing existing texts in the HTML format.
