@@ -101,7 +101,13 @@ define(['jquery', 'core/yui', 'core/str', 'editor_marklar/filepicker'], function
      */
     MarklarEditor.prototype.insertLink = function(data) {
         if ("url" in data) {
-            this.insertText("[text to show](" + data.url + ")");
+            var texttoshow;
+            if ("file" in data && data.file) {
+                texttoshow = data.file.replace(/(\[|\])/g, "_");
+            } else {
+                texttoshow = "texttoshow";
+            }
+            this.insertText("[" + texttoshow + "](" + data.url + ")");
         }
     };
 
