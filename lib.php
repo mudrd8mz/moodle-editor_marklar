@@ -24,6 +24,12 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+/**
+ * Defines the Marklar editor behaviour in terms of Moodle text editor interface
+ *
+ * @copyright 2016 David Mudrak <david@moodle.com>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class marklar_texteditor extends texteditor {
 
     /**
@@ -38,17 +44,39 @@ class marklar_texteditor extends texteditor {
     /**
      * Returns list of supported text formats.
      *
-     * We intentionally do not declare support for HTML here. So when editing
-     * existing text in FORMAT_HTML, another editor would be used (such as Atto).
+     * Marklar natively supports Markdown texts. As it is basically just a
+     * textarea, we also declare it should be used for Moodle auto-formatted
+     * and plain texts. For HTML, another rich text editor would be then used
+     * (such as Atto).  However, users can set this behaviour via their
+     * preferences.
      *
      * @return array
      */
     public function get_supported_formats() {
-        return [
-            FORMAT_MARKDOWN => FORMAT_MARKDOWN,
-            FORMAT_PLAIN => FORMAT_PLAIN,
-            FORMAT_MOODLE => FORMAT_MOODLE,
-        ];
+
+        // Marklar is always supported.
+        $supported = [FORMAT_MARKDOWN => FORMAT_MARKDOWN];
+
+        // Other formats can be supported via user preferences.
+        $formats = json_decode(get_user_preferences('editor_marklar/formats'));
+
+        if (is_object($formats)) {
+            if (!empty($formats->{'format'.FORMAT_MOODLE})) {
+                $supported[FORMAT_MOODLE] = FORMAT_MOODLE;
+            }
+            if (!empty($formats->{'format'.FORMAT_HTML})) {
+                $supported[FORMAT_HTML] = FORMAT_HTML;
+            }
+            if (!empty($formats->{'format'.FORMAT_PLAIN})) {
+                $supported[FORMAT_PLAIN] = FORMAT_PLAIN;
+            }
+
+        } else {
+            $supported[FORMAT_PLAIN] = FORMAT_PLAIN;
+            $supported[FORMAT_MOODLE] = FORMAT_MOODLE;
+        }
+
+        return $supported;
     }
 
     /**
@@ -89,5 +117,37 @@ class marklar_texteditor extends texteditor {
         ];
 
         $PAGE->requires->js_call_amd('editor_marklar/editor', 'init', [$initparams]);
+    }
+}
+
+
+/**
+ * Extends the user preferences page
+ *
+ * @param navigation_node $usersetting
+ * @param stdClass $user
+ * @param context_user $usercontext
+ * @param stdClass $course
+ * @param context_course $coursecontext
+ */
+function editor_marklar_extend_navigation_user_settings(navigation_node $usersetting, $user, context_user $usercontext,
+        $course, context_course $coursecontext) {
+    global $CFG;
+
+    // Check if the user's preferred editor is Marklar.
+    $preference = get_user_preferences('htmleditor', null, $user);
+
+    // If the user's preferred editor is "default", check if it is Marklar.
+    if (empty($preference) and !empty($CFG->texteditors)) {
+        $editors = explode(',', $CFG->texteditors);
+        if (reset($editors) === 'marklar') {
+            $preference = 'marklar';
+        }
+    }
+
+    // If the user's preferred editor is Marklar, show a link to Marklar preferences page.
+    if ($preference === 'marklar') {
+        $prefurl = new moodle_url('/lib/editor/marklar/preferences.php', ['userid' => $user->id]);
+        $usersetting->add(get_string('preferences', 'editor_marklar'), $prefurl);
     }
 }

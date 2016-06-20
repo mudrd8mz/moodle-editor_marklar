@@ -26,8 +26,10 @@ are not bugs.
 * Marklar does not have buttons. Markdown syntax is to be typed manually (done).
 * Marklar is not extensible via sub-plugins (done).
 * Marklar sets markdown as the preferred format for new texts (done).
-* Marklar is not used when editing existing texts in the HTML format.
-  Another editor such like Atto or TinyMCE is loaded to do that (done).
+* Marklar can be also used for editing texts in other formats. Supported
+  formats can be customised via user preferences (done).
+* Marklar is not used for editing HTML texts by default. Another editor such
+  like Atto or TinyMCE is loaded to do that (done).
 * Marklar supports images and files embedding via filepicker (done).
 * Marklar will support server-side generated preview (todo).
 * Marklar will support drafts auto-saving (todo).

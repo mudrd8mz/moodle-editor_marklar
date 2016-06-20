@@ -28,3 +28,8 @@ defined('MOODLE_INTERNAL') || die();
 $string['insertlink'] = 'Insert file';
 $string['insertimage'] = 'Insert image';
 $string['pluginname'] = 'Marklar';
+$string['preferences'] = 'Marklar editor preferences';
+$string['preferencesformat'] = 'Additional text formats to be also edited with Marklar';
+$string['preferencesformat_help'] = 'Marklar natively supports Markdown formatted texts. It can be also used for editing texts in other formats. Select all additional text formats you want to edit with Marklar, too.
+
+By default, Marklar is used for Moodle auto-format and Plain text formatted fields. For editing HTML, another rich text editor (such as Atto or TinyMCE) will be used.';
