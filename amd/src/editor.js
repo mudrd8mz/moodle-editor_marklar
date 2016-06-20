@@ -67,6 +67,19 @@ define(['jquery', 'core/yui', 'core/str', 'editor_marklar/filepicker'], function
                     self.panel.append(button);
                 });
             }
+            if (self.filepicker.canShowFilepicker("link")) {
+                str.get_string("insertlink", "editor_marklar").done(function(strinsertlink) {
+                    var button = $("<button/>");
+                    button.text(strinsertlink);
+                    button.click(function(e) {
+                        e.preventDefault();
+                        self.filepicker.showFilepicker("link", function (data) {
+                            self.insertLink(data);
+                        });
+                    });
+                    self.panel.append(button);
+                });
+            }
         });
     };
 
@@ -78,6 +91,23 @@ define(['jquery', 'core/yui', 'core/str', 'editor_marklar/filepicker'], function
     MarklarEditor.prototype.imageEmbedded = function(data) {
         if ("url" in data) {
             this.insertText("<img alt=\"\" class=\"img-responsive\" src=\"" + data.url + "\"/>");
+        }
+    };
+
+    /**
+     * This is called once the user picks a file via filepicker.
+     *
+     * @param {Object} data
+     */
+    MarklarEditor.prototype.insertLink = function(data) {
+        if ("url" in data) {
+            var texttoshow;
+            if ("file" in data && data.file) {
+                texttoshow = data.file.replace(/(\[|\])/g, "_");
+            } else {
+                texttoshow = "texttoshow";
+            }
+            this.insertText("[" + texttoshow + "](" + data.url + ")");
         }
     };
 

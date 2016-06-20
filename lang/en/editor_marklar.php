@@ -25,5 +25,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['insertlink'] = 'Insert file';
 $string['insertimage'] = 'Insert image';
 $string['pluginname'] = 'Marklar';
