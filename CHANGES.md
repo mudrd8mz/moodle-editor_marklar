@@ -1,3 +1,9 @@
+0.3.0
+=====
+
+* Added button to insert link to a file, credit goes to Juan Segarra Montesinos
+  (Jaume I University)
+
 0.2.1
 =====
 

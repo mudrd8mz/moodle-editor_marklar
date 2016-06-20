@@ -28,7 +28,7 @@ are not bugs.
 * Marklar sets markdown as the preferred format for new texts (done).
 * Marklar is not used when editing existing texts in the HTML format.
   Another editor such like Atto or TinyMCE is loaded to do that (done).
-* Marklar supports images embedding via filepicker (done).
+* Marklar supports images and files embedding via filepicker (done).
 * Marklar will support server-side generated preview (todo).
 * Marklar will support drafts auto-saving (todo).
 * Marklar will do just that and nothing more -
