@@ -34,6 +34,10 @@ define(['jquery', 'core/yui', 'core/str', 'editor_marklar/filepicker'], function
         this.panel = textarea.parent().next();
         this.initparams = initparams;
 
+        if (typeof M.editor_marklar.fpoptions[initparams.elementid] !== "undefined") {
+            this.initparams.filepickeroptions = M.editor_marklar.fpoptions[initparams.elementid];
+        }
+
         this.initFilesEmbedding();
     }
 
@@ -46,7 +50,7 @@ define(['jquery', 'core/yui', 'core/str', 'editor_marklar/filepicker'], function
 
         if (!("filepickeroptions" in this.initparams)) {
             // jshint devel:true
-            console.error("File picker options not provided via Marklar editor init parameters");
+            console.error(this.initparams.elementid + ": File picker options not found");
             return;
         }
 
