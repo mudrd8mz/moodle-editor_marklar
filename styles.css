@@ -1,0 +1,31 @@
+.mform .marklar-wrapper {
+    padding: 4px;
+    background-color: #f2f2f2;
+    border: 1px solid #bbb;
+}
+
+.mform .marklar-textarea {
+    background-color: white;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.mform .marklar-preview {
+    background-color: white;
+    margin: 0 0 10px;
+    border: 1px solid #ccc;
+    padding: 4px 6px;
+    border-radius: 4px;
+    overflow: auto;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+}
+
+.mform .marklar-preview-controls {
+    float: right;
+}
+
+.mform .marklar-preview .marklar-preview-loading {
+    display: inline-block;
+    padding: 5px;
+    color: #ccc;
+}

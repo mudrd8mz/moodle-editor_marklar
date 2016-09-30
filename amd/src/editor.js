@@ -19,7 +19,13 @@
  * @copyright   2016 David Mudrak <david@moodle.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-define(['jquery', 'core/yui', 'core/str', 'editor_marklar/filepicker'], function($, Y, str, filepicker) {
+define([
+        'jquery',
+        'core/yui',
+        'core/str',
+        'core/log',
+        'editor_marklar/filepicker',
+], function($, Y, str, log, filepicker) {
 
     "use strict";
 
@@ -30,16 +36,40 @@ define(['jquery', 'core/yui', 'core/str', 'editor_marklar/filepicker'], function
      */
     function MarklarEditor(textarea, initparams) {
 
-        this.textarea = textarea;
-        this.panel = textarea.parent().next();
         this.initparams = initparams;
 
         if (typeof M.editor_marklar.fpoptions[initparams.elementid] !== "undefined") {
             this.initparams.filepickeroptions = M.editor_marklar.fpoptions[initparams.elementid];
         }
 
+        this.initTextArea(textarea);
+        this.initPanel();
         this.initFilesEmbedding();
+        this.initPreview();
     }
+
+    /**
+     * Initialize the text area element.
+     *
+     * @param {Element} textarea
+     */
+    MarklarEditor.prototype.initTextArea = function(textarea) {
+        this.textarea = textarea.removeAttr('cols').addClass('marklar-textarea');
+        this.textarea.parent().parent().addClass('marklar-wrapper');
+    };
+
+    /**
+     * Initialize the bottom panel.
+     */
+    MarklarEditor.prototype.initPanel = function() {
+
+        // The moodleform element "editor" renders the textarea followed by a div. Let us use that div as our panel.
+        this.panel = this.textarea.parent().next();
+        // Create buttons placeholders in the panel so that the order or async initialization does not affect display order.
+        this.panel.append('<span data-marklar-placeholder="insert-image" />');
+        this.panel.append('<span data-marklar-placeholder="insert-file" />');
+        this.panel.append('<span data-marklar-placeholder="preview" />');
+    };
 
     /**
      * Initialize support for embedding images via file picker.
@@ -68,7 +98,7 @@ define(['jquery', 'core/yui', 'core/str', 'editor_marklar/filepicker'], function
                             self.imageEmbedded(data);
                         });
                     });
-                    self.panel.append(button);
+                    self.panel.find('[data-marklar-placeholder="insert-image"]').replaceWith(button);
                 });
             }
             if (self.filepicker.canShowFilepicker("link")) {
@@ -81,10 +111,74 @@ define(['jquery', 'core/yui', 'core/str', 'editor_marklar/filepicker'], function
                             self.insertLink(data);
                         });
                     });
-                    self.panel.append(button);
+                    self.panel.find('[data-marklar-placeholder="insert-file"]').replaceWith(button);
                 });
             }
         });
+    };
+
+    /**
+     * Initialize the context preview support.
+     */
+    MarklarEditor.prototype.initPreview = function() {
+        var self = this;
+
+        self.previewBody = $('<div class="marklar-preview" />')
+            .hide();
+        self.panel.before(self.previewBody);
+        str.get_strings([
+                {key: 'previewon', component: 'editor_marklar'},
+                {key: 'previewoff', component: 'editor_marklar'}
+        ]).then(function(strings) {
+            self.previewButtonOn = $('<button>')
+                .text(strings[0])
+                .on('click', self.previewOn.bind(self));
+            self.previewButtonOff = $('<button>')
+                .text(strings[1])
+                .on('click', self.previewOff.bind(self))
+                .hide();
+            var buttonPreview = $('<div class="marklar-preview-controls" />')
+                .append(self.previewButtonOn)
+                .append(self.previewButtonOff);
+            self.panel.find('[data-marklar-placeholder="preview"]').replaceWith(buttonPreview);
+        });
+    };
+
+    /**
+     * Toggle preview mode on.
+     *
+     * @param {Event} e
+     */
+    MarklarEditor.prototype.previewOn = function(e) {
+        var self = this;
+        e.preventDefault();
+
+        str.get_string('previewloading', 'editor_marklar').then(function(strpreviewloading) {
+            self.previewButtonOn.hide();
+            self.previewButtonOff.show();
+
+            self.previewBody.html('<div class="marklar-preview-loading">' + strpreviewloading + '</div>');
+            self.previewBody.height(self.textarea.height());
+
+            self.textarea.hide();
+            self.previewBody.show();
+        });
+    };
+
+    /**
+     * Toggle preview mode off.
+     *
+     * @param {Event} e
+     */
+    MarklarEditor.prototype.previewOff = function(e) {
+        var self = this;
+        e.preventDefault();
+
+        self.previewButtonOff.hide();
+        self.previewButtonOn.show();
+
+        self.previewBody.hide();
+        self.textarea.show();
     };
 
     /**
