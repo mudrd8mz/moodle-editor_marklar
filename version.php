@@ -27,7 +27,7 @@
  */
 
 $plugin->component = 'editor_marklar';
-$plugin->release = '0.4.0';
+$plugin->release = '0.4.1';
 $plugin->maturity = MATURITY_ALPHA;
-$plugin->version = 2016100100;
+$plugin->version = 2016100101;
 $plugin->requires = 2015111600;

@@ -1,3 +1,7 @@
+### 0.4.1 ###
+
+* Small CSS fixes on some themes.
+
 ### 0.4.0 ###
 
 * Added support for the preview of edited text. The preview is server-side
