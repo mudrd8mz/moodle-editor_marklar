@@ -24,8 +24,9 @@ define([
         'core/yui',
         'core/str',
         'core/log',
+        'core/ajax',
         'editor_marklar/filepicker',
-], function($, Y, str, log, filepicker) {
+], function($, Y, str, log, ajax, filepicker) {
 
     "use strict";
 
@@ -162,6 +163,7 @@ define([
 
             self.textarea.hide();
             self.previewBody.show();
+            self.previewLoad();
         });
     };
 
@@ -178,7 +180,33 @@ define([
         self.previewButtonOn.show();
 
         self.previewBody.hide();
+        self.previewBody.html('');
         self.textarea.show();
+    };
+
+    /**
+     * Load and display the text preview.
+     *
+     * @return {Deferred}
+     */
+    MarklarEditor.prototype.previewLoad = function() {
+        var self = this;
+        var args = {
+            text: self.textarea.val(),
+            format: self.panel.find('select.select').val(),
+            contextid: self.initparams.contextid
+        };
+
+        return ajax.call([{
+            methodname: 'editor_marklar_get_preview',
+            args: args
+        }])[0].fail(function(err) {
+            self.previewBody.html('<div class="alert alert-error"><b>Error:</b> ' + err.message + '</div>');
+            log.error(err);
+
+        }).then(function(response) {
+            self.previewBody.html(response.html);
+        });
     };
 
     /**
