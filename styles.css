@@ -4,6 +4,7 @@
     border: 1px solid #bbb;
 }
 
+.mform .felement.feditor textarea.marklar-textarea,
 .mform .marklar-textarea {
     background-color: white;
     box-sizing: border-box;
