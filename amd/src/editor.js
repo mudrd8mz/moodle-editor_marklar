@@ -67,9 +67,9 @@ define([
         // The moodleform element "editor" renders the textarea followed by a div. Let us use that div as our panel.
         this.panel = this.textarea.parent().next();
         // Create buttons placeholders in the panel so that the order or async initialization does not affect display order.
+        this.panel.append('<span data-marklar-placeholder="preview" />');
         this.panel.append('<span data-marklar-placeholder="insert-image" />');
         this.panel.append('<span data-marklar-placeholder="insert-file" />');
-        this.panel.append('<span data-marklar-placeholder="preview" />');
     };
 
     /**
