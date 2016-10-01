@@ -59,6 +59,7 @@ class editor_marklar_external extends external_api {
     public static function get_preview($text, $format, $contextid) {
         global $CFG;
 
+        // @codingStandardsIgnoreLine
         extract(self::validate_parameters(self::get_preview_parameters(), compact('text', 'format', 'contextid')));
 
         $context = context::instance_by_id($contextid);
