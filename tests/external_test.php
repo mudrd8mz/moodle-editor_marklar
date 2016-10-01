@@ -55,4 +55,25 @@ class editor_marklar_external_testcase extends advanced_testcase {
 
         $this->assertEquals('<h2>It works!</h2>', $response['html']);
     }
+
+    /**
+     * Test that draftfile.php links work in preview.
+     */
+    public function test_embeded_images_preview() {
+        global $CFG;
+        $this->resetAfterTest();
+
+        $this->setUser($this->getDataGenerator()->create_user());
+        $syscontext = context_system::instance();
+
+        $text = '* <img src="'.$CFG->httpswwwroot.'/draftfile.php/5/user/draft/179426321/test.png">';
+        $format = FORMAT_HTML;
+        $contextid = $syscontext->id;
+
+        $response = external_api::clean_returnvalue(editor_marklar_external::get_preview_returns(),
+            editor_marklar_external::get_preview($text, $format, $contextid));
+
+        $this->assertFalse(strpos($response['html'], 'brokenfile.php'));
+
+    }
 }

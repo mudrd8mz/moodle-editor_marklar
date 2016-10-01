@@ -57,6 +57,7 @@ class editor_marklar_external extends external_api {
      * @return string
      */
     public static function get_preview($text, $format, $contextid) {
+        global $CFG;
 
         extract(self::validate_parameters(self::get_preview_parameters(), compact('text', 'format', 'contextid')));
 
@@ -72,8 +73,13 @@ class editor_marklar_external extends external_api {
             'blanktarget' => true,
         ];
 
+        // Make sure the draftfile.php links are not replaced with brokenfile.php links.
+        $text = str_replace($CFG->httpswwwroot.'/draftfile.php', '@@DRAFTFILE@@', $text);
+        $html = format_text($text, $format, $options);
+        $html = str_replace('@@DRAFTFILE@@', $CFG->httpswwwroot.'/draftfile.php', $html);
+
         return [
-            'html' => format_text($text, $format, $options),
+            'html' => $html,
         ];
     }
 
