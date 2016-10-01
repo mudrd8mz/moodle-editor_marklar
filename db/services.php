@@ -15,19 +15,22 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Markdown friendly editor for Moodle.
- *
- * All editors marklar. This one just marklar less. It is not for everybody
- * though. Those who do not marklar about marklar should not marklar marklar.
- * There are other marklar better for them.
+ * Provides the list of the plugin's external services
  *
  * @package     editor_marklar
- * @copyright   2016 David Mudrak <david@moodle.com>
+ * @category    external
+ * @copyright   2016 David Mudrák <david@moodle.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$plugin->component = 'editor_marklar';
-$plugin->release = '0.4.0';
-$plugin->maturity = MATURITY_ALPHA;
-$plugin->version = 2016100100;
-$plugin->requires = 2016052300;
+defined('MOODLE_INTERNAL') || die();
+
+$functions = [
+    'editor_marklar_get_preview' => [
+        'classname' => 'editor_marklar_external',
+        'methodname' => 'get_preview',
+        'description' => 'Returns the editor content as it will be displayed after saving the form',
+        'type' => 'read',
+        'ajax' => true,
+    ],
+];
