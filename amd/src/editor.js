@@ -80,8 +80,7 @@ define([
     MarklarEditor.prototype.initFilesEmbedding = function() {
 
         if (!("filepickeroptions" in this.initparams)) {
-            // jshint devel:true
-            console.error(this.initparams.elementid + ": File picker options not found");
+            log.error(this.initparams.elementid + ": File picker options not found");
             return;
         }
 
