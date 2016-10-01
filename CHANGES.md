@@ -1,3 +1,10 @@
+### 0.4.0 ###
+
+* Added support for the preview of edited text. The preview is server-side
+  generated so it correctly applies filters and other formatting rules.
+* Improved styling of the editor to make it look nicer next to file picker
+  elements.
+
 ### 0.3.1 ###
 
 * The false debugging message "Too many params passed ..." not displayed any

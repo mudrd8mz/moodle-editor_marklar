@@ -31,7 +31,7 @@ are not bugs.
 * Marklar is not used for editing HTML texts by default. Another editor such
   like Atto or TinyMCE is loaded to do that (done).
 * Marklar supports images and files embedding via filepicker (done).
-* Marklar will support server-side generated preview (todo).
+* Marklar supports server-side generated preview (done).
 * Marklar will support drafts auto-saving (todo).
 * Marklar will do just that and nothing more -
   [KISS principle](https://en.wikipedia.org/wiki/KISS_principle).
