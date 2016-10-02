@@ -1,3 +1,9 @@
+### 0.4.2 ###
+
+* Marklar does not attempt to load when used outside of a moodle form.
+* Added self-check for the format selector presence before enabling the preview
+  feature.
+
 ### 0.4.1 ###
 
 * Small CSS fixes on some themes.
