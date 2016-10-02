@@ -40,7 +40,7 @@ define(['core/yui'], function(Y) {
      * @return {boolean}
      */
     EditorFilepicker.prototype.canShowFilepicker = function(type) {
-        return (typeof this.options[type] !== 'undefined');
+        return (this.options && (typeof this.options[type] !== 'undefined'));
     };
 
     /**
