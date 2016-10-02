@@ -256,6 +256,11 @@ define([
                 throw new Error("editor_marklar: Invalid editor init parameter - missing elementid");
             }
 
+            // Marklar works well inside moodleforms only at the moment.
+            if (!textarea.parents('form.mform').length || !textarea.parent().parent().parent().hasClass('feditor')) {
+                return;
+            }
+
             if (textarea.length) {
                 return new MarklarEditor(textarea, params);
             } else {
