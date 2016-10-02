@@ -66,6 +66,13 @@ define([
 
         // The moodleform element "editor" renders the textarea followed by a div. Let us use that div as our panel.
         this.panel = this.textarea.parent().next();
+
+        // Locate the format selector.
+        this.formatSelector = this.panel.find('select.select');
+        if (!this.formatSelector.length) {
+            this.formatSelector = null;
+        }
+
         // Create buttons placeholders in the panel so that the order or async initialization does not affect display order.
         this.panel.append('<span data-marklar-placeholder="preview" />');
         this.panel.append('<span data-marklar-placeholder="insert-image" />');
@@ -122,6 +129,11 @@ define([
      */
     MarklarEditor.prototype.initPreview = function() {
         var self = this;
+
+        // Check there is the format selector available.
+        if (!self.formatSelector) {
+            return;
+        }
 
         self.previewBody = $('<div class="marklar-preview" />')
             .hide();
@@ -192,7 +204,7 @@ define([
         var self = this;
         var args = {
             text: self.textarea.val(),
-            format: self.panel.find('select.select').val(),
+            format: self.formatSelector.val(),
             contextid: self.initparams.contextid
         };
 
