@@ -72,6 +72,9 @@ define([
         this.formatSelector = this.panel.find(formatSelectorSearch);
         if (!this.formatSelector.length) {
             this.formatSelector = null;
+
+        } else {
+            this.formatSelector.attr('data-marklar-widget', 'format-select');
         }
 
         // Create buttons placeholders in the panel so that the order or async initialization does not affect display order.
@@ -98,7 +101,7 @@ define([
             self.filepicker = filepicker.init(self.initparams.filepickeroptions);
             if (self.filepicker.canShowFilepicker("image")) {
                 str.get_string("insertimage", "editor_marklar").done(function(strinsertimage) {
-                    var button = $("<button/>");
+                    var button = $('<button data-marklar-widget="insert-image" />');
                     button.text(strinsertimage);
                     button.click(function(e) {
                         e.preventDefault();
@@ -107,11 +110,12 @@ define([
                         });
                     });
                     self.panel.find('[data-marklar-placeholder="insert-image"]').replaceWith(button);
+                    self.insertImageButton = button;
                 });
             }
             if (self.filepicker.canShowFilepicker("link")) {
                 str.get_string("insertlink", "editor_marklar").done(function(strinsertlink) {
-                    var button = $("<button/>");
+                    var button = $('<button data-marklar-widget="insert-file" />');
                     button.text(strinsertlink);
                     button.click(function(e) {
                         e.preventDefault();
@@ -120,6 +124,7 @@ define([
                         });
                     });
                     self.panel.find('[data-marklar-placeholder="insert-file"]').replaceWith(button);
+                    self.insertFileButton = button;
                 });
             }
         });
@@ -143,7 +148,7 @@ define([
                 {key: 'previewon', component: 'editor_marklar'},
                 {key: 'previewoff', component: 'editor_marklar'}
         ]).then(function(strings) {
-            self.previewButtonOn = $('<button>')
+            self.previewButtonOn = $('<button data-marklar-widget="preview" />')
                 .text(strings[0])
                 .on('click', self.previewOn.bind(self));
             self.previewButtonOff = $('<button>')
@@ -170,6 +175,18 @@ define([
             self.previewButtonOn.hide();
             self.previewButtonOff.show();
 
+            if (self.formatSelector) {
+                self.formatSelector.attr('disabled', 'disabled');
+            }
+
+            if (self.insertImageButton) {
+                self.insertImageButton.attr('disabled', 'disabled');
+            }
+
+            if (self.insertFileButton) {
+                self.insertFileButton.attr('disabled', 'disabled');
+            }
+
             self.previewBody.html('<div class="marklar-preview-loading">' + strpreviewloading + '</div>');
             self.previewBody.height(self.textarea.height());
 
@@ -190,6 +207,18 @@ define([
 
         self.previewButtonOff.hide();
         self.previewButtonOn.show();
+
+        if (self.formatSelector) {
+            self.formatSelector.removeAttr('disabled');
+        }
+
+        if (self.insertImageButton) {
+            self.insertImageButton.removeAttr('disabled');
+        }
+
+        if (self.insertFileButton) {
+            self.insertFileButton.removeAttr('disabled');
+        }
 
         self.previewBody.hide();
         self.previewBody.html('');
