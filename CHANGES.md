@@ -1,3 +1,9 @@
+### 0.4.3 ###
+
+* Fixed preview mode in clean-based themes in 3.2 (no boost support yet)
+* Format selector, image inserting button and file inserting button are now
+  disabled in the preview mode.
+
 ### 0.4.2 ###
 
 * Marklar does not attempt to load when used outside of a moodle form.
