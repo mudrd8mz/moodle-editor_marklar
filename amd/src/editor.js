@@ -68,7 +68,8 @@ define([
         this.panel = this.textarea.parent().next();
 
         // Locate the format selector.
-        this.formatSelector = this.panel.find('select.select');
+        var formatSelectorSearch = 'select[name="' + this.textarea.attr('name').replace('[text]', '[format]') + '"]';
+        this.formatSelector = this.panel.find(formatSelectorSearch);
         if (!this.formatSelector.length) {
             this.formatSelector = null;
         }
