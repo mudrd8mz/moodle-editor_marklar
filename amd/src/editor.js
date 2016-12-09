@@ -55,7 +55,13 @@ define([
      * @param {Element} textarea
      */
     MarklarEditor.prototype.initTextArea = function(textarea) {
-        this.textarea = textarea.removeAttr('cols').addClass('marklar-textarea');
+        this.textarea = textarea
+            .removeAttr('cols')
+            .addClass('marklar-textarea')
+            .css('box-sizing', 'border-box')
+            .css('width', '100%')
+            .css('background-color', 'white')
+            .css('margin-bottom', '10px');
         this.textarea.parent().parent().addClass('marklar-wrapper');
     };
 
