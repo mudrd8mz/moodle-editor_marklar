@@ -299,7 +299,8 @@ define([
             }
 
             // Marklar works well inside moodleforms only at the moment.
-            if (!textarea.parents('form.mform').length || !textarea.parent().parent().parent().hasClass('feditor')) {
+            if (!textarea.parents('form.mform').length || !textarea.parents('[data-fieldtype="editor"]').length) {
+                log.debug('marklar ' + params.elementid + ': not a nice neighborhood for me!');
                 return;
             }
 
