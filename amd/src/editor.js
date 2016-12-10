@@ -61,7 +61,8 @@ define([
             .css('box-sizing', 'border-box')
             .css('width', '100%')
             .css('background-color', 'white')
-            .css('margin-bottom', '10px');
+            .css('margin-bottom', '10px')
+            .css('padding', '7px');
         this.textarea.parent().parent().addClass('marklar-wrapper');
     };
 
