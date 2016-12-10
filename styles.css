@@ -4,6 +4,10 @@
     border: 1px solid #bbb;
 }
 
+.mform .marklar-wrapper [data-marklar-widget] {
+    margin-bottom: 10px;
+}
+
 .mform .marklar-preview {
     background-color: white;
     margin: 0 0 10px;

@@ -107,7 +107,7 @@ define([
             self.filepicker = filepicker.init(self.initparams.filepickeroptions);
             if (self.filepicker.canShowFilepicker("image")) {
                 str.get_string("insertimage", "editor_marklar").done(function(strinsertimage) {
-                    var button = $('<button data-marklar-widget="insert-image" />');
+                    var button = $('<button class="btn btn-default" data-marklar-widget="insert-image" />');
                     button.text(strinsertimage);
                     button.click(function(e) {
                         e.preventDefault();
@@ -121,7 +121,7 @@ define([
             }
             if (self.filepicker.canShowFilepicker("link")) {
                 str.get_string("insertlink", "editor_marklar").done(function(strinsertlink) {
-                    var button = $('<button data-marklar-widget="insert-file" />');
+                    var button = $('<button class="btn btn-default" data-marklar-widget="insert-file" />');
                     button.text(strinsertlink);
                     button.click(function(e) {
                         e.preventDefault();
@@ -154,10 +154,10 @@ define([
                 {key: 'previewon', component: 'editor_marklar'},
                 {key: 'previewoff', component: 'editor_marklar'}
         ]).then(function(strings) {
-            self.previewButtonOn = $('<button data-marklar-widget="preview" />')
+            self.previewButtonOn = $('<button class="btn btn-default" data-marklar-widget="preview" />')
                 .text(strings[0])
                 .on('click', self.previewOn.bind(self));
-            self.previewButtonOff = $('<button>')
+            self.previewButtonOff = $('<button class="btn btn-default">')
                 .text(strings[1])
                 .on('click', self.previewOff.bind(self))
                 .hide();
