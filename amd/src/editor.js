@@ -255,15 +255,15 @@ define([
             self.previewButtonOff.show();
 
             if (self.formatSelector) {
-                self.formatSelector.attr('disabled', 'disabled');
+                self.formatSelector.css('visibility', 'hidden');
             }
 
             if (self.insertImageButton) {
-                self.insertImageButton.attr('disabled', 'disabled');
+                self.insertImageButton.css('visibility', 'hidden');
             }
 
             if (self.insertFileButton) {
-                self.insertFileButton.attr('disabled', 'disabled');
+                self.insertFileButton.css('visibility', 'hidden');
             }
 
             self.previewBody.html('<div class="marklar-preview-loading">' + strpreviewloading + '</div>');
@@ -288,15 +288,15 @@ define([
         self.previewButtonOn.show();
 
         if (self.formatSelector) {
-            self.formatSelector.removeAttr('disabled');
+            self.formatSelector.css('visibility', 'visible');
         }
 
         if (self.insertImageButton) {
-            self.insertImageButton.removeAttr('disabled');
+            self.insertImageButton.css('visibility', 'visible');
         }
 
         if (self.insertFileButton) {
-            self.insertFileButton.removeAttr('disabled');
+            self.insertFileButton.css('visibility', 'visible');
         }
 
         self.previewBody.hide();
