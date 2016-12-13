@@ -1,3 +1,10 @@
+### 0.5.0 ###
+
+* Do not throw database error when submitted in the preview mode (bug #9).
+* Add support for the Boost theme and generally make it less dependent on
+  actual theme (bug #8).
+* Do not display it narrow in places like the Database module (bug #7).
+
 ### 0.4.3 ###
 
 * Fixed preview mode in clean-based themes in 3.2 (no boost support yet)
