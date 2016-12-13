@@ -1,14 +1,14 @@
-.mform .marklar-wrapper {
+.marklar-wrapper {
     padding: 4px;
     background-color: #f2f2f2;
     border: 1px solid #bbb;
 }
 
-.mform .marklar-wrapper [data-marklar-widget] {
+.marklar-wrapper [data-marklar-widget] {
     margin-bottom: 10px;
 }
 
-.mform .marklar-preview {
+.marklar-preview {
     background-color: white;
     margin: 0 0 10px;
     border: 1px solid #ccc;
@@ -18,11 +18,11 @@
     box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
 }
 
-.mform .marklar-preview-controls {
+.marklar-preview-controls {
     float: right;
 }
 
-.mform .marklar-preview .marklar-preview-loading {
+.marklar-preview .marklar-preview-loading {
     display: inline-block;
     padding: 5px;
     color: #ccc;

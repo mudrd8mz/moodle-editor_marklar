@@ -44,6 +44,7 @@ define([
         }
 
         this.initTextArea(textarea);
+        this.initFormatSelector();
         this.initPanel();
         this.initFilesEmbedding();
         this.initPreview();
@@ -55,7 +56,9 @@ define([
      * @param {Element} textarea
      */
     MarklarEditor.prototype.initTextArea = function(textarea) {
-        this.textarea = textarea
+        var self = this;
+
+        self.textarea = textarea
             .removeAttr('cols')
             .addClass('marklar-textarea')
             .css('box-sizing', 'border-box')
@@ -63,31 +66,101 @@ define([
             .css('background-color', 'white')
             .css('margin-bottom', '10px')
             .css('padding', '7px');
-        this.textarea.parent().parent().addClass('marklar-wrapper');
+    };
+
+    /**
+     * Initialize the text format selector.
+     */
+    MarklarEditor.prototype.initFormatSelector = function() {
+        var self = this;
+
+        // Expected name of the field with the text format.
+        var fname = self.textarea.attr('name').replace('[text]', '[format]');
+        var form = self.textarea.closest('form');
+
+        if (fname === self.textarea.attr('name')) {
+            // This may happen in places like mod_data or admin_setting_confightmleditor
+            // that keep their own naming rules for the format.
+            return;
+        }
+
+        // Locate the text format selector for our textarea.
+        self.formatSelector = form.find('select[name="' + fname + '"]');
+
+        if (self.formatSelector.length) {
+            // Great, there is the drop down format selector found. We're done here.
+            return;
+
+        } else {
+            // There is no dropdown menu with the format. Try to find the hidden field holding the format value.
+            var formatHidden = form.find('input[name="' + fname + '"]');
+            var formatId;
+            var formatName;
+
+            if (formatHidden.length) {
+                formatId = parseInt(formatHidden.attr('value'));
+            } else {
+                // No text format specified.
+                log.error('marklar: format field not found: ' + fname);
+                return;
+            }
+
+            switch(formatId) {
+                case 0:
+                    formatName = 'formattext';
+                    break;
+                case 1:
+                    formatName = 'formathtml';
+                    break;
+                case 2:
+                    formatName = 'formatplain';
+                    break;
+                case 4:
+                    formatName = 'formatmarkdown';
+                    break;
+                default:
+                    log.error('marklar: unknown text format ' + formatId);
+                    self.formatSelector = null;
+                    return;
+            }
+
+            // Convert the hidden field into a single item selector.
+            self.formatSelector = $('<select class="custom-select" name="' + fname + '"></select>')
+                .append($('<option value="' + formatId + '">' + formatName + '</option>'));
+            formatHidden.remove();
+
+            // Localize the format name.
+            str.get_string(formatName, 'core_moodle').done(function(formatTitle) {
+                self.formatSelector.find('option[value="' + formatId + '"]').text(formatTitle);
+            }).fail(function(ex) {
+                log.error(ex);
+                return;
+            });
+        }
     };
 
     /**
      * Initialize the bottom panel.
      */
     MarklarEditor.prototype.initPanel = function() {
+        var self = this;
 
-        // The moodleform element "editor" renders the textarea followed by a div. Let us use that div as our panel.
-        this.panel = this.textarea.parent().next();
+        // Wrap the textarea.
+        self.textarea.wrap('<div class="marklar-wrapper"></div>');
 
-        // Locate the format selector.
-        var formatSelectorSearch = 'select[name="' + this.textarea.attr('name').replace('[text]', '[format]') + '"]';
-        this.formatSelector = this.panel.find(formatSelectorSearch);
-        if (!this.formatSelector.length) {
-            this.formatSelector = null;
+        // Insert the panel region right after the textarea.
+        self.panel = $('<div class="marklar-panel"></div>').insertAfter(self.textarea);
 
-        } else {
-            this.formatSelector.attr('data-marklar-widget', 'format-select');
+        // Move the format selector to the panel.
+        if (self.formatSelector) {
+            self.panel.append(self.formatSelector);
+            self.formatSelector.attr('data-marklar-widget', 'format-select');
         }
 
         // Create buttons placeholders in the panel so that the order or async initialization does not affect display order.
-        this.panel.append('<span data-marklar-placeholder="preview" />');
-        this.panel.append('<span data-marklar-placeholder="insert-image" />');
-        this.panel.append('<span data-marklar-placeholder="insert-file" />');
+        self.panel.append('<span data-marklar-placeholder="preview" />');
+        self.panel.append('<span data-marklar-placeholder="insert-image" />');
+        self.panel.append('<span data-marklar-placeholder="insert-file" />');
     };
 
     /**
@@ -303,12 +376,6 @@ define([
                 textarea = $(document.getElementById(params.elementid));
             } else {
                 throw new Error("editor_marklar: Invalid editor init parameter - missing elementid");
-            }
-
-            // Marklar works well inside moodleforms only at the moment.
-            if (!textarea.parents('form.mform').length || !textarea.parents('[data-fieldtype="editor"]').length) {
-                log.debug('marklar ' + params.elementid + ': not a nice neighborhood for me!');
-                return;
             }
 
             if (textarea.length) {
