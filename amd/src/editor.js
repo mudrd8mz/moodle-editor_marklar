@@ -59,7 +59,6 @@ define([
         var self = this;
 
         self.textarea = textarea
-            .removeAttr('cols')
             .addClass('marklar-textarea')
             .css('box-sizing', 'border-box')
             .css('width', '100%')
