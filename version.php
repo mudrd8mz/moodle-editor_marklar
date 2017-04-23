@@ -26,6 +26,8 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die();
+
 $plugin->component = 'editor_marklar';
 $plugin->release = '0.5.0';
 $plugin->maturity = MATURITY_ALPHA;

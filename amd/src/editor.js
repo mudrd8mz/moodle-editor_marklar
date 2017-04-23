@@ -104,7 +104,7 @@ define([
                 return;
             }
 
-            switch(formatId) {
+            switch (formatId) {
                 case 0:
                     formatName = 'formattext';
                     break;
@@ -176,7 +176,7 @@ define([
 
         var self = this;
 
-        Y.use('core_filepicker', function () {
+        Y.use('core_filepicker', function() {
             self.filepicker = filepicker.init(self.initparams.filepickeroptions);
             if (self.filepicker.canShowFilepicker("image")) {
                 str.get_string("insertimage", "editor_marklar").done(function(strinsertimage) {
@@ -184,7 +184,7 @@ define([
                     button.text(strinsertimage);
                     button.click(function(e) {
                         e.preventDefault();
-                        self.filepicker.showFilepicker("image", function (data) {
+                        self.filepicker.showFilepicker("image", function(data) {
                             self.imageEmbedded(data);
                         });
                     });
@@ -198,7 +198,7 @@ define([
                     button.text(strinsertlink);
                     button.click(function(e) {
                         e.preventDefault();
-                        self.filepicker.showFilepicker("link", function (data) {
+                        self.filepicker.showFilepicker("link", function(data) {
                             self.insertLink(data);
                         });
                     });
@@ -368,7 +368,7 @@ define([
     };
 
     return /** @alias module:editor_marklar */ {
-        init: function (params) {
+        init: function(params) {
             var textarea;
 
             if ("elementid" in params) {

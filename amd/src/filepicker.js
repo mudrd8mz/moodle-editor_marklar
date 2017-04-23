@@ -27,6 +27,7 @@ define(['core/yui'], function(Y) {
 
     /**
      * @constructor
+     * @param {array} options List of filepicker options
      */
     function EditorFilepicker(options) {
         this.options = options;
@@ -36,7 +37,7 @@ define(['core/yui'], function(Y) {
      * Should we show the filepicker for the given type of content?
      *
      * @method canShowFilepicker
-     * @param string type The content type for the file picker: image, link, media
+     * @param {string} type The content type for the file picker: image, link, media
      * @return {boolean}
      */
     EditorFilepicker.prototype.canShowFilepicker = function(type) {
@@ -55,7 +56,7 @@ define(['core/yui'], function(Y) {
      */
     EditorFilepicker.prototype.showFilepicker = function(type, callback, context) {
         var self = this;
-        Y.use('core_filepicker', function (Y) {
+        Y.use('core_filepicker', function(Y) {
             var options = Y.clone(self.options[type], true);
             options.formcallback = callback;
             if (context) {
@@ -67,7 +68,7 @@ define(['core/yui'], function(Y) {
     };
 
     return /** @alias module:editor_marklar/filepicker */ {
-        init: function (options) {
+        init: function(options) {
             return new EditorFilepicker(options);
         }
     };
