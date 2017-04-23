@@ -1,3 +1,9 @@
+### 0.5.1 ###
+
+* Fixed Moodle code precheck errors and warnings.
+* Tested functionality on Moodle 3.3beta.
+* Added travis checks against PHP 7.1.
+
 ### 0.5.0 ###
 
 * Do not throw database error when submitted in the preview mode (bug #9).
