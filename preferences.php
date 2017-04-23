@@ -25,6 +25,8 @@
 require_once(__DIR__.'/../../../config.php');
 require_once($CFG->dirroot.'/user/editlib.php');
 
+require_login(SITEID, false);
+
 $userid = optional_param('userid', $USER->id, PARAM_INT);
 
 list($user, $course) = useredit_setup_preference_page($userid, SITEID);
