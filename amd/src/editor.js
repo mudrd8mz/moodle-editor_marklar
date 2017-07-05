@@ -48,6 +48,7 @@ define([
         this.initPanel();
         this.initFilesEmbedding();
         this.initPreview();
+        this.initSyntaxHelp();
     }
 
     /**
@@ -150,16 +151,20 @@ define([
         // Insert the panel region right after the textarea.
         self.panel = $('<div class="marklar-panel"></div>').insertAfter(self.textarea);
 
+        // Create a subpanel within the panel with widgets that should be visible in editing mode only.
+        self.editpanel = $('<div class="marklar-edit-panel"></div>').appendTo(self.panel);
+
         // Move the format selector to the panel.
         if (self.formatSelector) {
-            self.panel.append(self.formatSelector);
+            self.editpanel.append(self.formatSelector);
             self.formatSelector.attr('data-marklar-widget', 'format-select');
         }
 
         // Create buttons placeholders in the panel so that the order or async initialization does not affect display order.
-        self.panel.append('<span data-marklar-placeholder="preview" />');
-        self.panel.append('<span data-marklar-placeholder="insert-image" />');
-        self.panel.append('<span data-marklar-placeholder="insert-file" />');
+        self.panel.prepend('<span data-marklar-placeholder="preview" />');
+        self.editpanel.append('<span data-marklar-placeholder="syntax" />');
+        self.editpanel.append('<span data-marklar-placeholder="insert-image" />');
+        self.editpanel.append('<span data-marklar-placeholder="insert-file" />');
     };
 
     /**
@@ -227,10 +232,10 @@ define([
                 {key: 'previewon', component: 'editor_marklar'},
                 {key: 'previewoff', component: 'editor_marklar'}
         ]).then(function(strings) {
-            self.previewButtonOn = $('<button class="btn btn-default" data-marklar-widget="preview" />')
+            self.previewButtonOn = $('<button class="btn btn-default" data-marklar-widget="preview-on" />')
                 .text(strings[0])
                 .on('click', self.previewOn.bind(self));
-            self.previewButtonOff = $('<button class="btn btn-default">')
+            self.previewButtonOff = $('<button class="btn btn-default" data-marklar-widget="preview-off" >')
                 .text(strings[1])
                 .on('click', self.previewOff.bind(self))
                 .hide();
@@ -253,18 +258,7 @@ define([
         str.get_string('previewloading', 'editor_marklar').then(function(strpreviewloading) {
             self.previewButtonOn.hide();
             self.previewButtonOff.show();
-
-            if (self.formatSelector) {
-                self.formatSelector.css('visibility', 'hidden');
-            }
-
-            if (self.insertImageButton) {
-                self.insertImageButton.css('visibility', 'hidden');
-            }
-
-            if (self.insertFileButton) {
-                self.insertFileButton.css('visibility', 'hidden');
-            }
+            self.editpanel.hide();
 
             self.previewBody.html('<div class="marklar-preview-loading">' + strpreviewloading + '</div>');
             self.previewBody.height(self.textarea.height());
@@ -286,18 +280,7 @@ define([
 
         self.previewButtonOff.hide();
         self.previewButtonOn.show();
-
-        if (self.formatSelector) {
-            self.formatSelector.css('visibility', 'visible');
-        }
-
-        if (self.insertImageButton) {
-            self.insertImageButton.css('visibility', 'visible');
-        }
-
-        if (self.insertFileButton) {
-            self.insertFileButton.css('visibility', 'visible');
-        }
+        self.editpanel.show();
 
         self.previewBody.hide();
         self.previewBody.html('');
@@ -365,6 +348,96 @@ define([
      */
     MarklarEditor.prototype.insertText = function(text) {
         this.textarea.val(this.textarea.val() + "\n\n" + text);
+    };
+
+    /**
+     * Initialize the syntax help panel.
+     */
+    MarklarEditor.prototype.initSyntaxHelp = function() {
+        var self = this;
+
+        // Check there is the format selector available.
+        if (!self.formatSelector) {
+            return;
+        }
+
+        self.syntaxBody = $('<div class="marklar-syntax-help" />')
+            .hide();
+        self.editpanel.append(self.syntaxBody);
+        str.get_strings([
+                {key: 'syntaxon', component: 'editor_marklar'},
+                {key: 'syntaxoff', component: 'editor_marklar'},
+        ]).then(function(strings) {
+            self.syntaxButtonOn = $('<button class="btn btn-link" data-marklar-widget="syntax-on" />')
+                .text(strings[0])
+                .on('click', self.syntaxOn.bind(self));
+            self.syntaxButtonOff = $('<button class="btn btn-link" data-marklar-widget="syntax-off" />')
+                .text(strings[1])
+                .on('click', self.syntaxOff.bind(self))
+                .hide();
+            var buttonSyntax = $('<div class="marklar-syntax-controls" />')
+                .append(self.syntaxButtonOn)
+                .append(self.syntaxButtonOff);
+            self.panel.find('[data-marklar-placeholder="syntax"]').replaceWith(buttonSyntax);
+        });
+
+        // If the syntax help is expanded and the format is changed, update the
+        // syntax help to describe the new format.
+        if (self.formatSelector) {
+            self.formatSelector.on('change', function() {
+                if (self.syntaxBody.is(':visible')) {
+                    self.syntaxButtonOn.click();
+                }
+            });
+        }
+    };
+
+    /**
+     * Toggle syntax help on.
+     *
+     * @param {Event} e
+     */
+    MarklarEditor.prototype.syntaxOn = function(e) {
+        var self = this;
+        e.preventDefault();
+
+        str.get_string('syntaxloading', 'editor_marklar').then(function(strsyntaxloading) {
+            self.syntaxButtonOn.hide();
+            self.syntaxButtonOff.show();
+            self.syntaxBody.html('<div class="marklar-syntax-loading">' + strsyntaxloading + '</div>');
+            self.syntaxBody.show();
+            self.syntaxLoad();
+            return;
+        });
+    };
+
+    /**
+     * Toggle syntax help off.
+     *
+     * @param {Event} e
+     */
+    MarklarEditor.prototype.syntaxOff = function(e) {
+        var self = this;
+        e.preventDefault();
+
+        self.syntaxButtonOff.hide();
+        self.syntaxButtonOn.show();
+        self.syntaxBody.hide();
+        self.syntaxBody.html('');
+    };
+
+    /**
+     * Load and display the text syntax.
+     *
+     * @return {Deferred}
+     */
+    MarklarEditor.prototype.syntaxLoad = function() {
+        var self = this;
+
+        return str.get_string('syntax-format' + self.formatSelector.val(), 'editor_marklar').then(function(strsyntax) {
+            self.syntaxBody.html(strsyntax);
+            return;
+        });
     };
 
     return /** @alias module:editor_marklar */ {
