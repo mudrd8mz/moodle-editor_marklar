@@ -1,3 +1,8 @@
+### 0.6.0 ###
+
+* Displays quick reference for the currently selected format.
+* Internal refactoring and improvements in the JavaScript code.
+
 ### 0.5.1 ###
 
 * Fixed Moodle code precheck errors and warnings.
