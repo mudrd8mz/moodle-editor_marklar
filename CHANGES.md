@@ -1,3 +1,7 @@
+### 0.6.1 ###
+
+* Only fixes the detected coding style issues.
+
 ### 0.6.0 ###
 
 * Displays quick reference for the currently selected format.
