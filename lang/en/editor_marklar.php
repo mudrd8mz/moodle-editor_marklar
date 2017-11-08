@@ -54,6 +54,7 @@ $string['syntax-format1'] = '<dl>
  <dd><code>Line&lt;br&gt;break</code></dd>
 </dl>';
 $string['syntax-format2'] = '<p>This format is useful when you need to include lots of code or HTML that you want to be displayed exactly as you wrote it. It still translates spaces and new lines, but otherwise your text isn\'t touched.</p>';
+// @codingStandardsIgnoreStart
 $string['syntax-format4'] = '<dl>
 <dt>Links</dt>
  <dd><code>[link text](https://example.com)</code></dd>
@@ -86,3 +87,4 @@ $string['syntax-format4'] = '<dl>
 </dl>
 <hr>
 <p><a target="_blank" href="https://daringfireball.net/projects/markdown/syntax">Full Markdown syntax documentation</a></p>';
+// @codingStandardsIgnoreEnd
