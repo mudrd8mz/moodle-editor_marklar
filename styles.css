@@ -42,11 +42,11 @@
 .marklar-syntax-help {
     padding: 4px 10px;
     font-size: 80%;
-	background-color: #f9f9f9;
-	border: 1px solid #ccc;
-	border-radius: 4px 4px 4px 4px;
-	-moz-border-radius: 4px 4px 4px 4px;
-	-webkit-border-radius: 4px 4px 4px 4px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 4px 4px 4px 4px;
+    -moz-border-radius: 4px 4px 4px 4px;
+    -webkit-border-radius: 4px 4px 4px 4px;
 }
 
 .marklar-syntax-help dd code {
