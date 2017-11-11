@@ -1,3 +1,7 @@
+### 0.6.2 ###
+
+* Fixed JS coding style warnings reported by eslint
+
 ### 0.6.1 ###
 
 * Only fixes the detected coding style issues.
