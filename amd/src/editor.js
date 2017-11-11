@@ -216,19 +216,21 @@ define([
 
     /**
      * Initialize the context preview support.
+     *
+     * @return {boolean}
      */
     MarklarEditor.prototype.initPreview = function() {
         var self = this;
 
         // Check there is the format selector available.
         if (!self.formatSelector) {
-            return;
+            return false;
         }
 
         self.previewBody = $('<div class="marklar-preview" />')
             .hide();
         self.panel.before(self.previewBody);
-        str.get_strings([
+        return str.get_strings([
                 {key: 'previewon', component: 'editor_marklar'},
                 {key: 'previewoff', component: 'editor_marklar'}
         ]).then(function(strings) {
@@ -243,6 +245,7 @@ define([
                 .append(self.previewButtonOn)
                 .append(self.previewButtonOff);
             self.panel.find('[data-marklar-placeholder="preview"]').replaceWith(buttonPreview);
+            return true;
         });
     };
 
@@ -250,12 +253,13 @@ define([
      * Toggle preview mode on.
      *
      * @param {Event} e
+     * @return {boolean}
      */
     MarklarEditor.prototype.previewOn = function(e) {
         var self = this;
         e.preventDefault();
 
-        str.get_string('previewloading', 'editor_marklar').then(function(strpreviewloading) {
+        return str.get_string('previewloading', 'editor_marklar').then(function(strpreviewloading) {
             self.previewButtonOn.hide();
             self.previewButtonOff.show();
             self.editpanel.hide();
@@ -266,6 +270,8 @@ define([
             self.textarea.hide();
             self.previewBody.show();
             self.previewLoad();
+
+            return true;
         });
     };
 
@@ -290,7 +296,7 @@ define([
     /**
      * Load and display the text preview.
      *
-     * @return {Deferred}
+     * @return {boolean}
      */
     MarklarEditor.prototype.previewLoad = function() {
         var self = this;
@@ -306,9 +312,11 @@ define([
         }])[0].fail(function(err) {
             self.previewBody.html('<div class="alert alert-error"><b>Error:</b> ' + err.message + '</div>');
             log.error(err);
+            return false;
 
         }).then(function(response) {
             self.previewBody.html(response.html);
+            return true;
         });
     };
 
@@ -352,13 +360,15 @@ define([
 
     /**
      * Initialize the syntax help panel.
+     *
+     * @return {boolean}
      */
     MarklarEditor.prototype.initSyntaxHelp = function() {
         var self = this;
 
         // Check there is the format selector available.
         if (!self.formatSelector) {
-            return;
+            return false;
         }
 
         self.syntaxBody = $('<div class="marklar-syntax-help" />')
@@ -379,6 +389,10 @@ define([
                 .append(self.syntaxButtonOn)
                 .append(self.syntaxButtonOff);
             self.panel.find('[data-marklar-placeholder="syntax"]').replaceWith(buttonSyntax);
+            return true;
+        }).catch(function(err) {
+            log.error(err);
+            return false;
         });
 
         // If the syntax help is expanded and the format is changed, update the
@@ -390,24 +404,27 @@ define([
                 }
             });
         }
+
+        return true;
     };
 
     /**
      * Toggle syntax help on.
      *
      * @param {Event} e
+     * @return {boolean}
      */
     MarklarEditor.prototype.syntaxOn = function(e) {
         var self = this;
         e.preventDefault();
 
-        str.get_string('syntaxloading', 'editor_marklar').then(function(strsyntaxloading) {
+        return str.get_string('syntaxloading', 'editor_marklar').then(function(strsyntaxloading) {
             self.syntaxButtonOn.hide();
             self.syntaxButtonOff.show();
             self.syntaxBody.html('<div class="marklar-syntax-loading">' + strsyntaxloading + '</div>');
             self.syntaxBody.show();
             self.syntaxLoad();
-            return;
+            return true;
         });
     };
 
