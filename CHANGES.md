@@ -1,3 +1,8 @@
+### 0.7.0 ###
+
+* Implements the privacy API (GDPR compliance).
+* Supported are now Moodle versions 3.3 or higher.
+
 ### 0.6.2 ###
 
 * Fixed JS coding style warnings reported by eslint

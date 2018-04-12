@@ -23,8 +23,8 @@ env:
   - DB=pgsql
  matrix:
   - MOODLE_BRANCH=master
+  - MOODLE_BRANCH=MOODLE_34_STABLE
   - MOODLE_BRANCH=MOODLE_33_STABLE
-  - MOODLE_BRANCH=MOODLE_32_STABLE
 
 before_install:
   - phpenv config-rm xdebug.ini

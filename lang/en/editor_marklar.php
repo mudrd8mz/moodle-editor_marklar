@@ -36,6 +36,7 @@ By default, Marklar is used for Moodle auto-format and Plain text formatted fiel
 $string['previewoff'] = 'Edit';
 $string['previewon'] = 'Preview';
 $string['previewloading'] = 'Loading preview…';
+$string['privacy:export:preferences:format'] = 'Whether you prefer to use Marklar for editing texts with {$a->format} syntax.';
 $string['syntaxoff'] = 'Hide syntax';
 $string['syntaxon'] = 'Show syntax';
 $string['syntaxloading'] = 'Loading syntax help…';
