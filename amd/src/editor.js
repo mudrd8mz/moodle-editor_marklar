@@ -351,11 +351,13 @@ define([
     /**
      * Inserts the given text into the editor.
      *
-     * @todo respect the current caret position
-     * @param {String} text
+     * @param {String} inserttext
      */
-    MarklarEditor.prototype.insertText = function(text) {
-        this.textarea.val(this.textarea.val() + "\n\n" + text);
+    MarklarEditor.prototype.insertText = function(inserttext) {
+        var areatext = this.textarea.val();
+        var selectionStart = this.textarea.prop('selectionStart');
+        var selectionEnd = this.textarea.prop('selectionEnd');
+        this.textarea.val(areatext.substring(0, selectionStart) + inserttext + areatext.substring(selectionEnd));
     };
 
     /**
