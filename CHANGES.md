@@ -1,3 +1,7 @@
+### 0.8.0 ###
+
+* Allows to embed images from clipboard (such as screenshots).
+
 ### 0.7.0 ###
 
 * Implements the privacy API (GDPR compliance).

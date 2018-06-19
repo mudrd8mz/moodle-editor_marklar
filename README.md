@@ -32,6 +32,7 @@ are not bugs.
   like Atto or TinyMCE is loaded to do that (done).
 * Marklar supports images and files embedding via filepicker (done).
 * Marklar supports server-side generated preview (done).
+* Marklar supports uploading images from clipboard (done).
 * Marklar will support drafts auto-saving (todo).
 * Marklar will do just that and nothing more -
   [KISS principle](https://en.wikipedia.org/wiki/KISS_principle).
