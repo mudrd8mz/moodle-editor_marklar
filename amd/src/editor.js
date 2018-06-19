@@ -26,7 +26,8 @@ define([
         'core/log',
         'core/ajax',
         'editor_marklar/filepicker',
-], function($, Y, str, log, ajax, filepicker) {
+        'editor_marklar/imagepaster',
+], function($, Y, str, log, ajax, filepicker, ImagePaster) {
 
     "use strict";
 
@@ -49,6 +50,7 @@ define([
         this.initFilesEmbedding();
         this.initPreview();
         this.initSyntaxHelp();
+        this.initImagePaster();
     }
 
     /**
@@ -408,6 +410,19 @@ define([
         }
 
         return true;
+    };
+
+    /**
+     * Initialize the image paster module.
+     */
+    MarklarEditor.prototype.initImagePaster = function() {
+        var self = this;
+
+        if (!self.initparams.filepickeroptions.image) {
+            return;
+        }
+
+        ImagePaster.init(self.textarea, self.initparams.filepickeroptions.image, self.imageEmbedded.bind(this));
     };
 
     /**
