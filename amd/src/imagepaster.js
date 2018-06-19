@@ -51,7 +51,7 @@ define(['jquery', 'core/log', 'core/config'], function($, Log, Config) {
 
         self.textarea.on('paste', function(e) {
             var items = e.originalEvent.clipboardData.items;
-            for (var i = 0 ; i < items.length ; i++) {
+            for (var i = 0; i < items.length; i++) {
                 var item = items[i];
                 if (item.type.indexOf('image/') === 0) {
                     self.uploadImage(item.getAsFile());
@@ -63,7 +63,7 @@ define(['jquery', 'core/log', 'core/config'], function($, Log, Config) {
     /**
      * Upload the pasted file to Moodle.
      *
-     * @param {File} pasted file
+     * @param {File} file - Pasted file.
      */
     ImagePaster.prototype.uploadImage = function(file) {
         var self = this;
@@ -128,29 +128,32 @@ define(['jquery', 'core/log', 'core/config'], function($, Log, Config) {
          * @param {jQuery|Element|string} textareaorid - Editor's textarea element or its id.
          * @param {Object} imagepickeroptions - Filepicker component used for uploading.
          * @param {function(Object)} callback - Function to run when the pasted image has been uploaded.
+         * @returns {ImagePaster|bool} - ImagePaster instance or false on error.
          */
         init: function(textareaorid, imagepickeroptions, callback) {
 
+            var textarea;
+
             if (typeof textareaorid === 'string') {
-                var textarea = $(document.getElementById(textareaorid));
+                textarea = $(document.getElementById(textareaorid));
 
             } else {
-                var textarea = $(textareaorid);
+                textarea = $(textareaorid);
             }
 
             if (!textarea.length) {
                 Log.error('imagepaster: invalid editor textarea element');
-                return;
+                return false;
             }
 
             if (!imagepickeroptions) {
                 Log.error('imagepaster: invalid image picker options');
-                return;
+                return false;
             }
 
             if (!callback || typeof callback != 'function') {
                 Log.error('imagepaster: invalid callback specified');
-                return;
+                return false;
             }
 
             return new ImagePaster(textarea, imagepickeroptions, callback);
