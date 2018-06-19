@@ -1,3 +1,7 @@
+### 0.8.1 ###
+
+* Fixed reported eslint warnings.
+
 ### 0.8.0 ###
 
 * Allows to embed images from clipboard (such as screenshots).
