@@ -1,3 +1,8 @@
+### 0.8.2 ###
+
+* Notify filters about updated content in previews - makes filters like MathJax work
+  then. Credit goes to Juan Segarra Montesinos (@juancs).
+
 ### 0.8.1 ###
 
 * Fixed reported eslint warnings.
