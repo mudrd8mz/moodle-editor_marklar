@@ -25,9 +25,10 @@ define([
         'core/str',
         'core/log',
         'core/ajax',
+        'core/event',
         'editor_marklar/filepicker',
         'editor_marklar/imagepaster',
-], function($, Y, str, log, ajax, filepicker, ImagePaster) {
+], function($, Y, str, log, ajax, event, filepicker, ImagePaster) {
 
     "use strict";
 
@@ -318,6 +319,7 @@ define([
 
         }).then(function(response) {
             self.previewBody.html(response.html);
+            event.notifyFilterContentUpdated(self.previewBody);
             return true;
         });
     };
