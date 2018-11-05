@@ -14,7 +14,12 @@ not marklar marklar. There are other marklar better for them.
 Usage
 -----
 
-Set Marklar as your preferred text editor.
+1. As an admin, go to Site administration > Plugins > Text editors > Manage editors
+2. Enable the Marklar editor
+3. As the user, go to your Preferences > Editor preferences and set Marklar as your
+   preferred editor.
+4. Go to Preferences > Miscellaneous > Marklar editor preferences to eventually change
+   the default behaviour of the editor.
 
 Features
 --------
