@@ -1,4 +1,3 @@
-MDTVERSION=3.7
 MDTCOMPONENT=editor_marklar
 MDTRELPATH=lib/editor/marklar/
 MDTEXPORT=origin/master
