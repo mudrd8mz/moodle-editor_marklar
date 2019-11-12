@@ -1,3 +1,7 @@
+### 0.8.4 ###
+
+* Include the re-compiled AMD modules and the associated source maps.
+
 ### 0.8.3 ###
 
 * Stop using the httpswwwroot setting (deprecated in Moodle 3.4, removed in 3.8).
