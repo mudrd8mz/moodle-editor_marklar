@@ -75,9 +75,9 @@ class editor_marklar_external extends external_api {
         ];
 
         // Make sure the draftfile.php links are not replaced with brokenfile.php links.
-        $text = str_replace($CFG->httpswwwroot.'/draftfile.php', '@@DRAFTFILE@@', $text);
+        $text = str_replace($CFG->wwwroot.'/draftfile.php', '@@DRAFTFILE@@', $text);
         $html = format_text($text, $format, $options);
-        $html = str_replace('@@DRAFTFILE@@', $CFG->httpswwwroot.'/draftfile.php', $html);
+        $html = str_replace('@@DRAFTFILE@@', $CFG->wwwroot.'/draftfile.php', $html);
 
         return [
             'html' => $html,

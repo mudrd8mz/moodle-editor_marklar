@@ -66,7 +66,7 @@ class editor_marklar_external_testcase extends advanced_testcase {
         $this->setUser($this->getDataGenerator()->create_user());
         $syscontext = context_system::instance();
 
-        $text = '* <img src="'.$CFG->httpswwwroot.'/draftfile.php/5/user/draft/179426321/test.png">';
+        $text = '* <img src="'.$CFG->wwwroot.'/draftfile.php/5/user/draft/179426321/test.png">';
         $format = FORMAT_HTML;
         $contextid = $syscontext->id;
 
