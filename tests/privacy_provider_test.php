@@ -50,7 +50,6 @@ class editor_marklar_privacy_provider_testcase extends advanced_testcase {
         $result = provider::get_metadata($items);
         $this->assertSame($items, $result);
         $this->assertInstanceOf(collection::class, $result);
-        $this->assertEquals(1, count($result));
     }
 
     /**
