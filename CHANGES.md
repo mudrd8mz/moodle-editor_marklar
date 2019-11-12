@@ -1,3 +1,9 @@
+### 0.8.3 ###
+
+* Stop using the httpswwwroot setting (deprecated in Moodle 3.4, removed in 3.8).
+* Perform travis-ci tests on PHP 7.2.
+* Supported are now Moodle versions 3.4 or higher.
+
 ### 0.8.2 ###
 
 * Notify filters about updated content in previews - makes filters like MathJax work
