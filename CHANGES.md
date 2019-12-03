@@ -1,3 +1,13 @@
+### 0.9.0 ###
+
+* The master branch now contains the version with AMD modules compiled for Moodle 3.8.
+  This will allow to start using ES6 features or APIs that require a polyfill.
+
+### 0.8.x ###
+
+* The maintenance branch for Moodle 3.4 - 3.7 forked off as 0.8.x and uses the old way
+  of building the AMD modules.
+
 ### 0.8.4 ###
 
 * Include the re-compiled AMD modules and the associated source maps.
