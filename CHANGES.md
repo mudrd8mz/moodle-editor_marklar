@@ -1,3 +1,8 @@
+### 0.8.5 ###
+
+* Forking a separate maintenance branch 0.8.x for Moodle 3.4 - 3.7 so that the AMD
+  modules can be compiled against the target Moodle version.
+
 ### 0.8.4 ###
 
 * Include the re-compiled AMD modules and the associated source maps.
