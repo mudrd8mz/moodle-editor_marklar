@@ -109,19 +109,19 @@ class marklar_texteditor extends texteditor {
     public function use_editor($elementid, array $options=null, $fpoptions = null) {
         global $PAGE;
 
+        // If we passed the $fpoptions via init's parameters, debugging warning
+        // about the parameter size would be thrown. This is a really nasty
+        // hack to work around that. See MDL-53423 for details.
+        $PAGE->requires->js_amd_inline('M.editor_marklar = M.editor_marklar || {}');
+        $PAGE->requires->js_amd_inline('M.editor_marklar.fpoptions = M.editor_marklar.fpoptions || {}');
+        $PAGE->requires->js_amd_inline(js_writer::set_variable('M.editor_marklar.fpoptions.'.$elementid, $fpoptions));
+
         $initparams = [
             'elementid' => $elementid,
             'contextid' => empty($options['context']) ? $PAGE->context->id : $options['context']->id,
         ];
 
         $PAGE->requires->js_call_amd('editor_marklar/editor', 'init', [$initparams]);
-
-        // If we passed the $fpoptions via init's parameters, debugging warning
-        // about the parameter size would be thrown. This is a really nasty
-        // hack to work around that. See MDL-53423 for details.
-        $PAGE->requires->js_init_code('M.editor_marklar = M.editor_marklar || {}');
-        $PAGE->requires->js_init_code('M.editor_marklar.fpoptions = M.editor_marklar.fpoptions || {}');
-        $PAGE->requires->js_init_code(js_writer::set_variable('M.editor_marklar.fpoptions.'.$elementid, $fpoptions));
     }
 }
 
