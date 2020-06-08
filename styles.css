@@ -4,6 +4,10 @@
     border: 1px solid #bbb;
 }
 
+.marklar-panel .btn + .btn {
+    margin-left: 0.25rem;
+}
+
 .marklar-panel::after {
     content: " ";
     display: block;
