@@ -83,7 +83,7 @@ $string['syntax-format4'] = '<dl>
  <dd><code>***</code></dd>
 <dt>HTML</dt>
  <dd>For any markup that is not covered by Markdown syntax, simply use raw HTML.</dd>
- <dd><code>&lt;span class="label label-info"&gt;Notice&lt;/span&gt;</code></dd>
+ <dd><code>&lt;span class="badge badge-info"&gt;Notice&lt;/span&gt;</code></dd>
  <dd><code>&lt;img class="img-responsive" src="…" alt="…" /&gt;</code></dd>
 </dl>
 <hr>
