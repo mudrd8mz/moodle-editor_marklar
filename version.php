@@ -30,6 +30,6 @@ defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'editor_marklar';
 $plugin->release = '0.9.0';
-$plugin->maturity = MATURITY_ALPHA;
+$plugin->maturity = MATURITY_BETA;
 $plugin->version = 2019120300;
 $plugin->requires = 2019111800;
