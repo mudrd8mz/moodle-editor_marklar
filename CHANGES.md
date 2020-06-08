@@ -1,3 +1,9 @@
+### 1.0.0-beta.1 ###
+
+* Fixed missing white space between the Insert image and the Insert file buttons.
+* The editor is now considered feature complete, releasing as the first beta.
+* Tested under Moodle 3.9.
+
 ### 0.9.0 ###
 
 * The master branch now contains the version with AMD modules compiled for Moodle 3.8.
