@@ -1,33 +1,35 @@
 language: php
 
-sudo: true
+os: linux
+dist: xenial
 
 addons:
   firefox: "47.0.1"
-  postgresql: "9.4"
-  apt:
-    packages:
-      - openjdk-8-jre-headless
+
+services:
+  - mysql
+  - postgresql
 
 cache:
   directories:
     - $HOME/.composer/cache
     - $HOME/.npm
+    - $HOME/.nvm
 
-php:
- - 7.2
-
-env:
- global:
-  - DB=pgsql
- matrix:
-  - MOODLE_BRANCH=master
-  - MOODLE_BRANCH=MOODLE_38_STABLE
+jobs:
+  include:
+    - php: 7.2
+      env: MOODLE_BRANCH=MOODLE_38_STABLE DB=mysqli BEHAT=no
+    - php: 7.3
+      env: MOODLE_BRANCH=master DB=pgsql BEHAT=no
 
 before_install:
   - phpenv config-rm xdebug.ini
-  - nvm install 8.9
-  - nvm use 8.9
+  - if [ -z $NODE ]; then
+      export NODE=14;
+    fi
+  - nvm install $NODE
+  - nvm use $NODE
   - cd ../..
   - composer create-project -n --no-dev --prefer-dist blackboard-open-source/moodle-plugin-ci ci ^2
   - export PATH="$(cd ci/bin; pwd):$(cd ci/vendor/bin; pwd):$PATH"
@@ -46,4 +48,6 @@ script:
   - moodle-plugin-ci grunt
   - moodle-plugin-ci phpdoc
   - moodle-plugin-ci phpunit
-  - moodle-plugin-ci behat
+  - if [ $BEHAT == 'yes' ]; then
+      moodle-plugin-ci behat || travis_terminate 1;
+    fi
