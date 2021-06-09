@@ -1,3 +1,8 @@
+### 1.0.0-beta.2 ###
+
+* Fixed "No permission to access this repository." error when browsing Content bank
+  repository. Credit goes to Juan Segarra Montesinos (@juancs).
+
 ### 1.0.0-beta.1 ###
 
 * Fixed missing white space between the Insert image and the Insert file buttons.
