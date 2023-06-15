@@ -27,8 +27,6 @@ defined('MOODLE_INTERNAL') || die();
 
 global $CFG;
 
-require_once($CFG->libdir.'/externallib.php');
-
 /**
  * Defines tests for the plugin external API.
  *
@@ -39,8 +37,13 @@ class editor_marklar_external_testcase extends advanced_testcase {
 
     /**
      * Test the editor_marklar_get_preview() external function.
+     *
+     * @runInSeparateProcess
      */
     public function test_get_preview() {
+        global $CFG;
+        require_once($CFG->libdir.'/externallib.php');
+
         $this->resetAfterTest();
 
         $this->setUser($this->getDataGenerator()->create_user());
@@ -58,9 +61,13 @@ class editor_marklar_external_testcase extends advanced_testcase {
 
     /**
      * Test that draftfile.php links work in preview.
+     *
+     * @runInSeparateProcess
      */
     public function test_embeded_images_preview() {
         global $CFG;
+        require_once($CFG->libdir.'/externallib.php');
+
         $this->resetAfterTest();
 
         $this->setUser($this->getDataGenerator()->create_user());
