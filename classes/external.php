@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Provides the class {@link editor_marklar_external}.
+ * Provides the class {@see editor_marklar_external}.
  *
  * @package     editor_marklar
  * @category    external
@@ -36,7 +36,7 @@ require_once($CFG->libdir.'/externallib.php');
 class editor_marklar_external extends external_api {
 
     /**
-     * Describes the input parameters for the {@link self::get_preview()}.
+     * Describes the input parameters for the {@see self::get_preview()}.
      *
      * @return external_function_parameters
      */
@@ -85,7 +85,7 @@ class editor_marklar_external extends external_api {
     }
 
     /**
-     * Describes the value returned by the {@link self::get_preview()}.
+     * Describes the value returned by the {@see self::get_preview()}.
      *
      * @return external_single_structure
      */

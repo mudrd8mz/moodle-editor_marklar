@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Provides the {@link editor_marklar_privacy_provider_testcase} class.
+ * Provides the {@see editor_marklar_privacy_provider_testcase} class.
  *
  * @package     editor_marklar
  * @category    test
@@ -34,7 +34,7 @@ use core_privacy\local\request\deletion_criteria;
 use editor_marklar\privacy\provider;
 
 /**
- * Unit tests for {@link editor_marklar\privacy\provider} class.
+ * Unit tests for {@see editor_marklar\privacy\provider} class.
  *
  * @copyright 2018 David Mudrak <david@moodle.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later

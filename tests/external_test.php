@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Provides {@link editor_marklar_external_testcase} class.
+ * Provides {@see editor_marklar_external_testcase} class.
  *
  * @package     editor_marklar
  * @category    test

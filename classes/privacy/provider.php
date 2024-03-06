@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Provides the {@link editor_marklar\privacy\provider} class.
+ * Provides the {@see editor_marklar\privacy\provider} class.
  *
  * @package     editor_marklar
  * @category    privacy
