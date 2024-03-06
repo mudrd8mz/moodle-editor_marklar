@@ -17,7 +17,6 @@
  * Tiny AMD wrapper for the Moodle filepicker, based on Atto YUI module moodle-editor_atto-editor.
  *
  * @module      editor_marklar/filepicker
- * @package     editor_marklar
  * @copyright   2016 David Mudrak <david@moodle.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

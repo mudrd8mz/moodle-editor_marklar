@@ -15,7 +15,6 @@
 
 /**
  * @module      editor_marklar/editor
- * @package     editor_marklar
  * @copyright   2016 David Mudrak <david@moodle.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

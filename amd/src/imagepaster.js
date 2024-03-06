@@ -17,7 +17,6 @@
  * Allows images to be pasted into textarea editor field.
  *
  * @module      editor_marklar/imagepaster
- * @package     editor_marklar
  * @copyright   2018 David Mudrák <david@moodle.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
