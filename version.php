@@ -29,8 +29,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'editor_marklar';
-$plugin->release = '1.0.0-beta.2';
+$plugin->release = '1.0.0-beta.3';
 $plugin->maturity = MATURITY_BETA;
-$plugin->version = 2021060900;
+$plugin->version = 2021060901;
 $plugin->requires = 2019111800;
-$plugin->supported = [39, 311];
+$plugin->supported = [39, 401];

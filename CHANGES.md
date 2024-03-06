@@ -1,3 +1,7 @@
+### 1.0.0-beta.3 ###
+
+* Do not pass null as a string parameter to `json_decode()` to avoid deprecation warning.
+
 ### 1.0.0-beta.2 ###
 
 * Fixed "No permission to access this repository." error when browsing Content bank
