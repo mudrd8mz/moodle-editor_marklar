@@ -41,7 +41,7 @@ $data = [
     'monospace' => get_user_preferences('editor_marklar/monospace', false, $user),
 ];
 
-$formats = json_decode(get_user_preferences('editor_marklar/formats', null, $user) ?? '');
+$formats = json_decode(get_user_preferences('editor_marklar/formats', '', $user));
 if (is_object($formats)) {
     $data = array_merge($data, (array)$formats);
 }
