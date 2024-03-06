@@ -52,6 +52,10 @@ class editor_marklar_preferences_form extends moodleform {
         $mform->setDefault('format'.FORMAT_MOODLE, 1);
         $mform->setDefault('format'.FORMAT_PLAIN, 1);
 
+        $mform->addGroup([
+            $mform->createElement('checkbox', 'monospace', get_string('preferencesmonospace', 'editor_marklar')),
+        ], 'editing', get_string('preferencesediting', 'editor_marklar'), '<br>', false);
+
         if (!empty($this->_customdata['user'])) {
             $mform->addElement('hidden', 'userid', $this->_customdata['user']->id);
             $mform->setType('userid', PARAM_INT);

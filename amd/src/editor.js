@@ -68,6 +68,10 @@ define([
             .css('background-color', 'white')
             .css('margin-bottom', '10px')
             .css('padding', '7px');
+
+        if (self.initparams.monospace) {
+            self.textarea.css('font-family', 'monospace');
+        }
     };
 
     /**

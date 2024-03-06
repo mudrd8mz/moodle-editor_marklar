@@ -37,7 +37,9 @@ $PAGE->set_title($course->shortname.': '.get_string('preferences', 'editor_markl
 $PAGE->set_heading(fullname($user, true));
 
 $form = new editor_marklar_preferences_form(null, ['user' => $user]);
-$data = [];
+$data = [
+    'monospace' => get_user_preferences('editor_marklar/monospace', false, $user),
+];
 
 $formats = json_decode(get_user_preferences('editor_marklar/formats', null, $user) ?? '');
 if (is_object($formats)) {
@@ -58,6 +60,7 @@ if ($form->is_cancelled()) {
         'format'.FORMAT_PLAIN => !empty($data->{'format'.FORMAT_PLAIN}),
     ];
     set_user_preference('editor_marklar/formats', json_encode($formats), $user);
+    set_user_preference('editor_marklar/monospace', !empty($data->monospace));
     \core\event\user_updated::create_from_userid($user->id)->trigger();
     redirect($redirect);
 }

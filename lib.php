@@ -112,6 +112,7 @@ class marklar_texteditor extends texteditor {
         $initparams = [
             'elementid' => $elementid,
             'contextid' => empty($options['context']) ? $PAGE->context->id : $options['context']->id,
+            'monospace' => !empty(get_user_preferences('editor_marklar/monospace')),
         ];
 
         $PAGE->requires->js_call_amd('editor_marklar/editor', 'init', [$initparams]);
