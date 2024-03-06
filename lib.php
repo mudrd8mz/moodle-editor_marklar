@@ -144,7 +144,7 @@ function editor_marklar_extend_navigation_user_settings(navigation_node $userset
     $preference = get_user_preferences('htmleditor', null, $user);
 
     // If the user's preferred editor is "default", check if it is Marklar.
-    if (empty($preference) and !empty($CFG->texteditors)) {
+    if (empty($preference) && !empty($CFG->texteditors)) {
         $editors = explode(',', $CFG->texteditors);
         if (reset($editors) === 'marklar') {
             $preference = 'marklar';
