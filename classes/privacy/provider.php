@@ -67,7 +67,7 @@ class provider implements
      */
     public static function _export_user_preferences($userid) {
 
-        $raw = (array) json_decode(get_user_preferences('editor_marklar/formats', null, $userid));
+        $raw = (array) json_decode(get_user_preferences('editor_marklar/formats', null, $userid) ?? '');
 
         if (is_array($raw)) {
             foreach ($raw as $format => $enabled) {

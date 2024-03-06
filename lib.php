@@ -58,7 +58,7 @@ class marklar_texteditor extends texteditor {
         $supported = [FORMAT_MARKDOWN => FORMAT_MARKDOWN];
 
         // Other formats can be supported via user preferences.
-        $formats = json_decode(get_user_preferences('editor_marklar/formats'));
+        $formats = json_decode(get_user_preferences('editor_marklar/formats') ?? '');
 
         if (is_object($formats)) {
             if (!empty($formats->{'format'.FORMAT_MOODLE})) {

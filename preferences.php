@@ -39,7 +39,7 @@ $PAGE->set_heading(fullname($user, true));
 $form = new editor_marklar_preferences_form(null, ['user' => $user]);
 $data = [];
 
-$formats = json_decode(get_user_preferences('editor_marklar/formats', null, $user));
+$formats = json_decode(get_user_preferences('editor_marklar/formats', null, $user) ?? '');
 if (is_object($formats)) {
     $data = array_merge($data, (array)$formats);
 }
