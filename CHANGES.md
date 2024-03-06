@@ -1,3 +1,9 @@
+### 1.0.0 ###
+
+* Added preference to use monospace font when editing the text (#11).
+* Fixed unit tests to work again. Credit goes to Juan Segarra Montesinos (@juancs).
+* Moodle 4.2 and higher is required.
+
 ### 1.0.0-beta.3 ###
 
 * Do not pass null as a string parameter to `json_decode()` to avoid deprecation warning.
