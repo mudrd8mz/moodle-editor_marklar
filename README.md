@@ -6,8 +6,6 @@ All online editors marklar. This one just marklar less.
 It is not for everybody though. Those who do not marklar about marklar should
 not marklar marklar. There are other marklar better for them.
 
-[![Build status](https://travis-ci.org/mudrd8mz/moodle-editor_marklar.svg?branch=master)](https://travis-ci.org/mudrd8mz/moodle-editor_marklar)
-
 Usage
 -----
 
