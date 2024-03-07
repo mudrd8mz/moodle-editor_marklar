@@ -22,8 +22,6 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Defines the Marklar editor behaviour in terms of Moodle text editor interface
  *
@@ -91,7 +89,6 @@ class marklar_texteditor extends texteditor {
     /**
      * Supports file picker and repos?
      *
-     * @todo
      * @return bool
      */
     public function supports_repositories() {
@@ -122,7 +119,8 @@ class marklar_texteditor extends texteditor {
         // hack to work around that. See MDL-53423 for details.
         $PAGE->requires->js_init_code('M.editor_marklar = M.editor_marklar || {}');
         $PAGE->requires->js_init_code('M.editor_marklar.fpoptions = M.editor_marklar.fpoptions || {}');
-        $PAGE->requires->js_init_code(js_writer::set_variable('M.editor_marklar.fpoptions.'.$elementid, convert_to_array($fpoptions)));
+        $PAGE->requires->js_init_code(js_writer::set_variable('M.editor_marklar.fpoptions.'.$elementid,
+            convert_to_array($fpoptions)));
     }
 }
 
