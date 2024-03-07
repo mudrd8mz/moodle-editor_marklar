@@ -30,8 +30,6 @@ use core_privacy\local\metadata\collection;
 use core_privacy\local\request\transform;
 use core_privacy\local\legacy_polyfill;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Provides a response to a specific privacy related request from the user.
  *
@@ -45,18 +43,15 @@ class provider implements
         // This plugin stores site-wide user preferences.
         \core_privacy\local\request\user_preference_provider {
 
-    // We want to support both 3.3 and higher versions of the API. This class provides methods with underscore prefix.
-    // The polyfill exposes them under expected signatures for particular Moodle version.
-    use legacy_polyfill;
-
     /**
      * Collect metadata describing personal data stored by the plugin.
      *
      * @param collection $collection
      * @return collection
      */
-    public static function _get_metadata(collection $collection) {
+    public static function get_metadata(collection $collection): collection {
         $collection->add_user_preference('editor_marklar/formats', 'preferencesformat');
+        $collection->add_user_preference('editor_marklar/monospace', 'preferencesmonospace');
         return $collection;
     }
 
@@ -65,7 +60,7 @@ class provider implements
      *
      * @param int $userid The id of the user whose data is to be exported.
      */
-    public static function _export_user_preferences($userid) {
+    public static function export_user_preferences(int $userid) {
 
         $raw = (array) json_decode(get_user_preferences('editor_marklar/formats', '', $userid));
 
