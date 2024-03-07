@@ -14,26 +14,17 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+namespace editor_marklar\external;
+
 /**
- * Provides {@see editor_marklar_external_testcase} class.
+ * Defines tests for the plugin external function editor_marklar_get_preview.
  *
  * @package     editor_marklar
- * @category    test
- * @copyright   2016 David Mudrák <david@moodle.com>
+ * @covers      \editor_marklar\external\get_preview
+ * @copyright   2016 David Mudrak <david@moodle.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-defined('MOODLE_INTERNAL') || die();
-
-global $CFG;
-
-/**
- * Defines tests for the plugin external API.
- *
- * @copyright 2016 David Mudrak <david@moodle.com>
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-class editor_marklar_external_testcase extends advanced_testcase {
+class get_preview_test extends \advanced_testcase {
 
     /**
      * Test the editor_marklar_get_preview() external function.
@@ -47,14 +38,14 @@ class editor_marklar_external_testcase extends advanced_testcase {
         $this->resetAfterTest();
 
         $this->setUser($this->getDataGenerator()->create_user());
-        $syscontext = context_system::instance();
+        $syscontext = \context_system::instance();
 
         $text = '## It works! ##';
         $format = FORMAT_MARKDOWN;
         $contextid = $syscontext->id;
 
-        $response = external_api::clean_returnvalue(editor_marklar_external::get_preview_returns(),
-            editor_marklar_external::get_preview($text, $format, $contextid));
+        $response = \core_external\external_api::clean_returnvalue(get_preview::execute_returns(),
+            get_preview::execute($text, $format, $contextid));
 
         $this->assertEquals('<h2>It works!</h2>', $response['html']);
     }
@@ -71,14 +62,14 @@ class editor_marklar_external_testcase extends advanced_testcase {
         $this->resetAfterTest();
 
         $this->setUser($this->getDataGenerator()->create_user());
-        $syscontext = context_system::instance();
+        $syscontext = \context_system::instance();
 
         $text = '* <img src="'.$CFG->wwwroot.'/draftfile.php/5/user/draft/179426321/test.png">';
         $format = FORMAT_HTML;
         $contextid = $syscontext->id;
 
-        $response = external_api::clean_returnvalue(editor_marklar_external::get_preview_returns(),
-            editor_marklar_external::get_preview($text, $format, $contextid));
+        $response = \core_external\external_api::clean_returnvalue(get_preview::execute_returns(),
+            get_preview::execute($text, $format, $contextid));
 
         $this->assertFalse(strpos($response['html'], 'brokenfile.php'));
 

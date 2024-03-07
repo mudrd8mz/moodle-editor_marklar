@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -12,35 +12,32 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
-/**
- * Provides the class {@see editor_marklar_external}.
- *
- * @package     editor_marklar
- * @category    external
- * @copyright   2016 David Mudrák <david@moodle.com>
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+namespace editor_marklar\external;
 
-defined('MOODLE_INTERNAL') || die();
-
-require_once($CFG->libdir.'/externallib.php');
+use context;
+use core_external\external_api;
+use core_external\external_function_parameters;
+use core_external\external_single_structure;
+use core_external\external_value;
 
 /**
  * Provides the plugin external functions.
  *
- * @copyright 2016 David Mudrak <david@moodle.com>
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     editor_marklar
+ * @category    external
+ * @copyright   2016 David Mudrak <david@moodle.com>
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class editor_marklar_external extends external_api {
+class get_preview extends external_api {
 
     /**
-     * Describes the input parameters for the {@see self::get_preview()}.
+     * Describes the input parameters.
      *
      * @return external_function_parameters
      */
-    public static function get_preview_parameters() {
+    public static function execute_parameters() {
         return new external_function_parameters([
             'text' => new external_value(PARAM_RAW, 'Input text', VALUE_REQUIRED),
             'format' => new external_value(PARAM_INT, 'Format of the input text', VALUE_REQUIRED),
@@ -56,11 +53,11 @@ class editor_marklar_external extends external_api {
      * @param int $contextid
      * @return string
      */
-    public static function get_preview($text, $format, $contextid) {
+    public static function execute($text, $format, $contextid) {
         global $CFG;
 
         // @codingStandardsIgnoreLine
-        extract(self::validate_parameters(self::get_preview_parameters(), compact('text', 'format', 'contextid')));
+        extract(self::validate_parameters(self::execute_parameters(), compact('text', 'format', 'contextid')));
 
         $context = context::instance_by_id($contextid);
         self::validate_context($context);
@@ -85,11 +82,11 @@ class editor_marklar_external extends external_api {
     }
 
     /**
-     * Describes the value returned by the {@see self::get_preview()}.
+     * Describes the returned value.
      *
      * @return external_single_structure
      */
-    public static function get_preview_returns() {
+    public static function execute_returns() {
         return new external_single_structure([
             'html' => new external_value(PARAM_RAW, 'HTML formatted text to be displayed'),
         ]);

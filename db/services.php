@@ -27,8 +27,8 @@ defined('MOODLE_INTERNAL') || die();
 
 $functions = [
     'editor_marklar_get_preview' => [
-        'classname' => 'editor_marklar_external',
-        'methodname' => 'get_preview',
+        'classname' => 'editor_marklar\external\get_preview',
+        'methodname' => 'execute',
         'description' => 'Returns the editor content as it will be displayed after saving the form',
         'type' => 'read',
         'ajax' => true,
