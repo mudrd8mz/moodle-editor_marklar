@@ -14,32 +14,22 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Provides the {@see editor_marklar_privacy_provider_testcase} class.
- *
- * @package     editor_marklar
- * @category    test
- * @copyright   2018 David Mudrák <david@moodle.com>
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
-defined('MOODLE_INTERNAL') || die();
-
-global $CFG;
+namespace editor_marklar\privacy;
 
 use core_privacy\local\metadata\collection;
 use core_privacy\local\request\writer;
 use core_privacy\local\request\approved_contextlist;
 use core_privacy\local\request\deletion_criteria;
-use editor_marklar\privacy\provider;
 
 /**
- * Unit tests for {@see editor_marklar\privacy\provider} class.
+ * Unit tests for the privacy API.
  *
- * @copyright 2018 David Mudrak <david@moodle.com>
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     editor_marklar
+ * @covers      \editor_marklar\privacy\provider
+ * @copyright   2018 David Mudrak <david@moodle.com>
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class editor_marklar_privacy_provider_testcase extends advanced_testcase {
+class provider_test extends \advanced_testcase {
 
     /**
      * Assert that provider::get_metadata() returns valid content.
@@ -57,9 +47,9 @@ class editor_marklar_privacy_provider_testcase extends advanced_testcase {
      */
     public function test_export_user_preferences_no_pref() {
 
-        $user = core_user::get_user_by_username('admin');
+        $user = \core_user::get_user_by_username('admin');
         provider::export_user_preferences($user->id);
-        $writer = writer::with_context(context_system::instance());
+        $writer = writer::with_context(\context_system::instance());
 
         $this->assertFalse($writer->has_any_data());
     }
@@ -71,7 +61,7 @@ class editor_marklar_privacy_provider_testcase extends advanced_testcase {
     public function test_export_user_preferences_has_pref() {
         $this->resetAfterTest();
 
-        $user = core_user::get_user_by_username('admin');
+        $user = \core_user::get_user_by_username('admin');
         $formats = [
             'format'.FORMAT_MOODLE => true,
             'format'.FORMAT_HTML => false,
@@ -80,7 +70,7 @@ class editor_marklar_privacy_provider_testcase extends advanced_testcase {
         set_user_preference('editor_marklar/formats', json_encode($formats), $user);
 
         provider::export_user_preferences($user->id);
-        $writer = writer::with_context(context_system::instance());
+        $writer = writer::with_context(\context_system::instance());
 
         $this->assertTrue($writer->has_any_data());
 
