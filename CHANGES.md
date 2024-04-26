@@ -1,3 +1,8 @@
+### 1.0.1 ###
+
+* Removed obsolete option that started to print debugging output in Moodle 4.4 (#27).
+* Moodle 4.4 marked as supported.
+
 ### 1.0.0 ###
 
 * Added preference to use monospace font when editing the text (#11).
