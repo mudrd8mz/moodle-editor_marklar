@@ -66,7 +66,6 @@ class get_preview extends external_api {
         // something reasonable for our purpose here.
         $options = [
             'context' => $context,
-            'nocache' => true,
             'para' => false,
             'blanktarget' => true,
         ];
