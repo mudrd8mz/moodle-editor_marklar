@@ -99,11 +99,11 @@ class marklar_texteditor extends texteditor {
      * Add required JS needed for editor
      *
      * @param string $elementid id of text area to be converted to editor
-     * @param array $options
+     * @param array|null $options
      * @param object $fpoptions file picker options
      * @return void
      */
-    public function use_editor($elementid, array $options=null, $fpoptions = null) {
+    public function use_editor($elementid, array|null $options = null, $fpoptions = null) {
         global $PAGE;
 
         $initparams = [
