@@ -29,12 +29,12 @@ use core_privacy\local\request\deletion_criteria;
  * @copyright   2018 David Mudrak <david@moodle.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class provider_test extends \advanced_testcase {
+final class provider_test extends \advanced_testcase {
 
     /**
      * Assert that provider::get_metadata() returns valid content.
      */
-    public function test_get_metadata() {
+    public function test_get_metadata(): void {
 
         $items = new collection('editor_marklar');
         $result = provider::get_metadata($items);
@@ -45,7 +45,7 @@ class provider_test extends \advanced_testcase {
     /**
      * Assert that provider::export_user_preferences() gives no data if the user has no Marklar preferences.
      */
-    public function test_export_user_preferences_no_pref() {
+    public function test_export_user_preferences_no_pref(): void {
 
         $user = \core_user::get_user_by_username('admin');
         provider::export_user_preferences($user->id);
@@ -58,7 +58,7 @@ class provider_test extends \advanced_testcase {
     /**
      * Assert that provider::export_user_preferences() gives user's Marklar preferences if they exist.
      */
-    public function test_export_user_preferences_has_pref() {
+    public function test_export_user_preferences_has_pref(): void {
         $this->resetAfterTest();
 
         $user = \core_user::get_user_by_username('admin');

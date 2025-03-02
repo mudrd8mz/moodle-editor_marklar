@@ -24,14 +24,14 @@ namespace editor_marklar\external;
  * @copyright   2016 David Mudrak <david@moodle.com>
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class get_preview_test extends \advanced_testcase {
+final class get_preview_test extends \advanced_testcase {
 
     /**
      * Test the editor_marklar_get_preview() external function.
      *
      * @runInSeparateProcess
      */
-    public function test_get_preview() {
+    public function test_get_preview(): void {
         global $CFG;
         require_once($CFG->libdir.'/externallib.php');
 
@@ -55,7 +55,7 @@ class get_preview_test extends \advanced_testcase {
      *
      * @runInSeparateProcess
      */
-    public function test_embeded_images_preview() {
+    public function test_embeded_images_preview(): void {
         global $CFG;
         require_once($CFG->libdir.'/externallib.php');
 
