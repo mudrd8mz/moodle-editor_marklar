@@ -25,8 +25,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['insertlink'] = 'Insert file';
 $string['insertimage'] = 'Insert image';
+$string['insertlink'] = 'Insert file';
 $string['pluginname'] = 'Marklar';
 $string['preferences'] = 'Marklar editor preferences';
 $string['preferencesediting'] = 'Editing options';
@@ -35,13 +35,10 @@ $string['preferencesformat_help'] = 'Marklar natively supports Markdown formatte
 
 By default, Marklar is used for Moodle auto-format and Plain text formatted fields. For editing HTML, another rich text editor (such as Atto or TinyMCE) will be used.';
 $string['preferencesmonospace'] = 'Use monospace font';
+$string['previewloading'] = 'Loading preview…';
 $string['previewoff'] = 'Edit';
 $string['previewon'] = 'Preview';
-$string['previewloading'] = 'Loading preview…';
 $string['privacy:export:preferences:format'] = 'Whether you prefer to use Marklar for editing texts with {$a->format} syntax.';
-$string['syntaxoff'] = 'Hide syntax';
-$string['syntaxon'] = 'Show syntax';
-$string['syntaxloading'] = 'Loading syntax help…';
 $string['syntax-format0'] = '<p>Moodle auto-format allows to type text normally, as if you were sending a plain-text email. Line breaks will be retained. You can still embed an HTML code if you want to and it will be applied.</p>';
 $string['syntax-format1'] = '<dl>
 <dt>Links</dt>
@@ -91,3 +88,6 @@ $string['syntax-format4'] = '<dl>
 <hr>
 <p><a target="_blank" href="https://daringfireball.net/projects/markdown/syntax">Full Markdown syntax documentation</a></p>';
 // @codingStandardsIgnoreEnd
+$string['syntaxloading'] = 'Loading syntax help…';
+$string['syntaxoff'] = 'Hide syntax';
+$string['syntaxon'] = 'Show syntax';
