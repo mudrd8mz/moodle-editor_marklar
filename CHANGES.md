@@ -1,3 +1,9 @@
+### 1.0.2 ###
+
+* Fixed unexpected token error on pages with textareas with special chars in
+  identifiers (#28). Credit goes to Juan Segarra Montesinos (@juancs).
+* Moodle 4.5 marked as supported.
+
 ### 1.0.1 ###
 
 * Removed obsolete option that started to print debugging output in Moodle 4.4 (#27).
