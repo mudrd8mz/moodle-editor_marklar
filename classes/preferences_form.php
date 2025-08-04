@@ -24,7 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->dirroot.'/lib/formslib.php');
+require_once($CFG->dirroot . '/lib/formslib.php');
 
 /**
  * Defines the Marklar editor user preferences form.
@@ -33,7 +33,6 @@ require_once($CFG->dirroot.'/lib/formslib.php');
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class editor_marklar_preferences_form extends moodleform {
-
     /**
      * Defines the form fields.
      */
@@ -42,15 +41,15 @@ class editor_marklar_preferences_form extends moodleform {
         $mform = $this->_form;
 
         $mform->addGroup([
-            $mform->createElement('checkbox', 'format'.FORMAT_HTML, null, get_string('formathtml')),
-            $mform->createElement('checkbox', 'format'.FORMAT_MOODLE, null, get_string('formattext')),
-            $mform->createElement('checkbox', 'format'.FORMAT_PLAIN, null, get_string('formatplain')),
+            $mform->createElement('checkbox', 'format' . FORMAT_HTML, null, get_string('formathtml')),
+            $mform->createElement('checkbox', 'format' . FORMAT_MOODLE, null, get_string('formattext')),
+            $mform->createElement('checkbox', 'format' . FORMAT_PLAIN, null, get_string('formatplain')),
         ], 'formats', get_string('preferencesformat', 'editor_marklar'), '<br>', false);
 
         $mform->addHelpButton('formats', 'preferencesformat', 'editor_marklar');
-        $mform->setDefault('format'.FORMAT_HTML, 0);
-        $mform->setDefault('format'.FORMAT_MOODLE, 1);
-        $mform->setDefault('format'.FORMAT_PLAIN, 1);
+        $mform->setDefault('format' . FORMAT_HTML, 0);
+        $mform->setDefault('format' . FORMAT_MOODLE, 1);
+        $mform->setDefault('format' . FORMAT_PLAIN, 1);
 
         $mform->addGroup([
             $mform->createElement('checkbox', 'monospace', get_string('preferencesmonospace', 'editor_marklar')),

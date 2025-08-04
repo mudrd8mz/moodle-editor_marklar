@@ -22,18 +22,18 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once(__DIR__.'/../../../config.php');
-require_once($CFG->dirroot.'/user/editlib.php');
+require_once(__DIR__ . '/../../../config.php');
+require_once($CFG->dirroot . '/user/editlib.php');
 
 require_login(SITEID, false);
 
 $userid = optional_param('userid', $USER->id, PARAM_INT);
 
-list($user, $course) = useredit_setup_preference_page($userid, SITEID);
+[$user, $course] = useredit_setup_preference_page($userid, SITEID);
 
 $PAGE->set_url('/lib/editor/marklar/preferences.php', ['id' => $userid]);
 $PAGE->navbar->includesettingsbase = true;
-$PAGE->set_title($course->shortname.': '.get_string('preferences', 'editor_marklar'));
+$PAGE->set_title($course->shortname . ': ' . get_string('preferences', 'editor_marklar'));
 $PAGE->set_heading(fullname($user, true));
 
 $form = new editor_marklar_preferences_form(null, ['user' => $user]);
@@ -52,12 +52,11 @@ $redirect = new moodle_url('/user/preferences.php', ['userid' => $user->id]);
 
 if ($form->is_cancelled()) {
     redirect($redirect);
-
 } else if ($data = $form->get_data()) {
     $formats = [
-        'format'.FORMAT_MOODLE => !empty($data->{'format'.FORMAT_MOODLE}),
-        'format'.FORMAT_HTML => !empty($data->{'format'.FORMAT_HTML}),
-        'format'.FORMAT_PLAIN => !empty($data->{'format'.FORMAT_PLAIN}),
+        'format' . FORMAT_MOODLE => !empty($data->{'format' . FORMAT_MOODLE}),
+        'format' . FORMAT_HTML => !empty($data->{'format' . FORMAT_HTML}),
+        'format' . FORMAT_PLAIN => !empty($data->{'format' . FORMAT_PLAIN}),
     ];
     set_user_preference('editor_marklar/formats', json_encode($formats), $user);
     set_user_preference('editor_marklar/monospace', !empty($data->monospace));

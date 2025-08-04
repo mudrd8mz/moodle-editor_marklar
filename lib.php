@@ -29,7 +29,6 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class marklar_texteditor extends texteditor {
-
     /**
      * Is editor supported in current browser?
      *
@@ -59,16 +58,15 @@ class marklar_texteditor extends texteditor {
         $formats = json_decode(get_user_preferences('editor_marklar/formats', ''));
 
         if (is_object($formats)) {
-            if (!empty($formats->{'format'.FORMAT_MOODLE})) {
+            if (!empty($formats->{'format' . FORMAT_MOODLE})) {
                 $supported[FORMAT_MOODLE] = FORMAT_MOODLE;
             }
-            if (!empty($formats->{'format'.FORMAT_HTML})) {
+            if (!empty($formats->{'format' . FORMAT_HTML})) {
                 $supported[FORMAT_HTML] = FORMAT_HTML;
             }
-            if (!empty($formats->{'format'.FORMAT_PLAIN})) {
+            if (!empty($formats->{'format' . FORMAT_PLAIN})) {
                 $supported[FORMAT_PLAIN] = FORMAT_PLAIN;
             }
-
         } else {
             $supported[FORMAT_PLAIN] = FORMAT_PLAIN;
             $supported[FORMAT_MOODLE] = FORMAT_MOODLE;
@@ -119,8 +117,12 @@ class marklar_texteditor extends texteditor {
         // hack to work around that. See MDL-53423 for details.
         $PAGE->requires->js_init_code('M.editor_marklar = M.editor_marklar || {}');
         $PAGE->requires->js_init_code('M.editor_marklar.fpoptions = M.editor_marklar.fpoptions || {}');
-        $PAGE->requires->js_init_code(js_writer::set_variable('M.editor_marklar.fpoptions['.json_encode($elementid).']',
-            convert_to_array($fpoptions)));
+        $PAGE->requires->js_init_code(
+            js_writer::set_variable(
+                'M.editor_marklar.fpoptions[' . json_encode($elementid) . ']',
+                convert_to_array($fpoptions)
+            )
+        );
     }
 }
 
@@ -134,8 +136,13 @@ class marklar_texteditor extends texteditor {
  * @param stdClass $course
  * @param context_course $coursecontext
  */
-function editor_marklar_extend_navigation_user_settings(navigation_node $usersetting, $user, context_user $usercontext,
-        $course, context_course $coursecontext) {
+function editor_marklar_extend_navigation_user_settings(
+    navigation_node $usersetting,
+    $user,
+    context_user $usercontext,
+    $course,
+    context_course $coursecontext
+) {
     global $CFG;
 
     // Check if the user's preferred editor is Marklar.

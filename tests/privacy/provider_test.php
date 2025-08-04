@@ -30,7 +30,6 @@ use core_privacy\local\request\deletion_criteria;
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 final class provider_test extends \advanced_testcase {
-
     /**
      * Assert that provider::get_metadata() returns valid content.
      */
@@ -63,9 +62,9 @@ final class provider_test extends \advanced_testcase {
 
         $user = \core_user::get_user_by_username('admin');
         $formats = [
-            'format'.FORMAT_MOODLE => true,
-            'format'.FORMAT_HTML => false,
-            'format'.FORMAT_PLAIN => true,
+            'format' . FORMAT_MOODLE => true,
+            'format' . FORMAT_HTML => false,
+            'format' . FORMAT_PLAIN => true,
         ];
         set_user_preference('editor_marklar/formats', json_encode($formats), $user);
 
@@ -77,8 +76,8 @@ final class provider_test extends \advanced_testcase {
         $prefs = (array) $writer->get_user_preferences('editor_marklar');
 
         $this->assertEquals(3, count($prefs));
-        $this->assertArrayHasKey('formats.format'.FORMAT_MOODLE, $prefs);
-        $this->assertArrayHasKey('formats.format'.FORMAT_HTML, $prefs);
-        $this->assertArrayHasKey('formats.format'.FORMAT_PLAIN, $prefs);
+        $this->assertArrayHasKey('formats.format' . FORMAT_MOODLE, $prefs);
+        $this->assertArrayHasKey('formats.format' . FORMAT_HTML, $prefs);
+        $this->assertArrayHasKey('formats.format' . FORMAT_PLAIN, $prefs);
     }
 }
