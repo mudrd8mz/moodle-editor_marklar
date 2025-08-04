@@ -25,7 +25,6 @@ namespace editor_marklar\external;
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 final class get_preview_test extends \advanced_testcase {
-
     /**
      * Test the editor_marklar_get_preview() external function.
      *
@@ -33,7 +32,7 @@ final class get_preview_test extends \advanced_testcase {
      */
     public function test_get_preview(): void {
         global $CFG;
-        require_once($CFG->libdir.'/externallib.php');
+        require_once($CFG->libdir . '/externallib.php');
 
         $this->resetAfterTest();
 
@@ -44,8 +43,10 @@ final class get_preview_test extends \advanced_testcase {
         $format = FORMAT_MARKDOWN;
         $contextid = $syscontext->id;
 
-        $response = \core_external\external_api::clean_returnvalue(get_preview::execute_returns(),
-            get_preview::execute($text, $format, $contextid));
+        $response = \core_external\external_api::clean_returnvalue(
+            get_preview::execute_returns(),
+            get_preview::execute($text, $format, $contextid)
+        );
 
         $this->assertEquals('<h2>It works!</h2>', $response['html']);
     }
@@ -57,21 +58,22 @@ final class get_preview_test extends \advanced_testcase {
      */
     public function test_embeded_images_preview(): void {
         global $CFG;
-        require_once($CFG->libdir.'/externallib.php');
+        require_once($CFG->libdir . '/externallib.php');
 
         $this->resetAfterTest();
 
         $this->setUser($this->getDataGenerator()->create_user());
         $syscontext = \context_system::instance();
 
-        $text = '* <img src="'.$CFG->wwwroot.'/draftfile.php/5/user/draft/179426321/test.png">';
+        $text = '* <img src="' . $CFG->wwwroot . '/draftfile.php/5/user/draft/179426321/test.png">';
         $format = FORMAT_HTML;
         $contextid = $syscontext->id;
 
-        $response = \core_external\external_api::clean_returnvalue(get_preview::execute_returns(),
-            get_preview::execute($text, $format, $contextid));
+        $response = \core_external\external_api::clean_returnvalue(
+            get_preview::execute_returns(),
+            get_preview::execute($text, $format, $contextid)
+        );
 
         $this->assertFalse(strpos($response['html'], 'brokenfile.php'));
-
     }
 }

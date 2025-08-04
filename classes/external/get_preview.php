@@ -31,7 +31,6 @@ use core_external\external_value;
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class get_preview extends external_api {
-
     /**
      * Describes the input parameters.
      *
@@ -71,9 +70,9 @@ class get_preview extends external_api {
         ];
 
         // Make sure the draftfile.php links are not replaced with brokenfile.php links.
-        $text = str_replace($CFG->wwwroot.'/draftfile.php', '@@DRAFTFILE@@', $text);
+        $text = str_replace($CFG->wwwroot . '/draftfile.php', '@@DRAFTFILE@@', $text);
         $html = format_text($text, $format, $options);
-        $html = str_replace('@@DRAFTFILE@@', $CFG->wwwroot.'/draftfile.php', $html);
+        $html = str_replace('@@DRAFTFILE@@', $CFG->wwwroot . '/draftfile.php', $html);
 
         return [
             'html' => $html,

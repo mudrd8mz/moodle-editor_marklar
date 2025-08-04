@@ -37,12 +37,11 @@ use core_privacy\local\legacy_polyfill;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class provider implements
-        // This plugin stores user private data.
-        \core_privacy\local\metadata\provider,
+    // This plugin stores user private data.
+    \core_privacy\local\metadata\provider,
 
-        // This plugin stores site-wide user preferences.
-        \core_privacy\local\request\user_preference_provider {
-
+    // This plugin stores site-wide user preferences.
+    \core_privacy\local\request\user_preference_provider {
     /**
      * Collect metadata describing personal data stored by the plugin.
      *
@@ -61,19 +60,18 @@ class provider implements
      * @param int $userid The id of the user whose data is to be exported.
      */
     public static function export_user_preferences(int $userid) {
-
         $raw = (array) json_decode(get_user_preferences('editor_marklar/formats', '', $userid));
 
         if (is_array($raw)) {
             foreach ($raw as $format => $enabled) {
-                switch($format) {
-                    case 'format'.FORMAT_HTML:
+                switch ($format) {
+                    case 'format' . FORMAT_HTML:
                         $name = get_string('formathtml');
                         break;
-                    case 'format'.FORMAT_MOODLE:
+                    case 'format' . FORMAT_MOODLE:
                         $name = get_string('formattext');
                         break;
-                    case 'format'.FORMAT_PLAIN:
+                    case 'format' . FORMAT_PLAIN:
                         $name = get_string('formatplain');
                         break;
                     default:
@@ -83,7 +81,7 @@ class provider implements
 
                 $desc = get_string('privacy:export:preferences:format', 'editor_marklar', ['format' => $name]);
 
-                writer::export_user_preference('editor_marklar', 'formats.'.$format, transform::yesno($enabled), $desc);
+                writer::export_user_preference('editor_marklar', 'formats.' . $format, transform::yesno($enabled), $desc);
             }
         }
     }
