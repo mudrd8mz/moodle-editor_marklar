@@ -1,0 +1,67 @@
+name: Publish release to camp
+
+on:
+  push:
+    tags: ["*"]
+  workflow_dispatch: {}
+
+env:
+  CAMP_INDEX_REPO: camp-registry/camp-index
+  COMPONENT: editor_marklar
+  SUPPORTED_MOODLE: "4.2,4.3,4.4,4.5"
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out plugin at the tag
+        uses: actions/checkout@v4
+        with:
+          path: plugin
+          fetch-depth: 0
+
+      - name: Check out camp index
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.CAMP_INDEX_REPO }}
+          path: index-repo
+          token: ${{ secrets.CAMP_INDEX_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install camp tools
+        run: pip install --quiet "git+https://github.com/camp-registry/camp-tools@v0.2.20"
+
+      - name: Require a listing manifest
+        run: camp scaffold plugin --check
+
+      - name: Label heuristics + security lint (warn-only preview)
+        run: |
+          camp lint-labels plugin || true
+          camp audit plugin || true
+
+      - name: Compute and append the release record
+        run: |
+          plugintype="${COMPONENT%%_*}"
+          camp release "index-repo/plugins/${plugintype}/${COMPONENT}.yml" \
+            "${GITHUB_REF_NAME}" --source ./plugin \
+            --supported-moodle "${SUPPORTED_MOODLE}"
+
+      - name: Open index pull request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.CAMP_INDEX_TOKEN }}
+          path: index-repo
+          # Most authors don't have write access to the index. Fork
+          # camp-registry/camp-index once (keep the fork's default branch in
+          # sync is NOT required), then uncomment with your fork:
+          push-to-fork: mudrd8mz/camp-index
+          branch: release/${{ env.COMPONENT }}-${{ github.ref_name }}
+          commit-message: "${{ env.COMPONENT }}: release ${{ github.ref_name }}"
+          title: "${{ env.COMPONENT }}: release ${{ github.ref_name }}"
+          body: |
+            Automated release PR from ${{ github.repository }} @ ${{ github.ref_name }}.
+            camp CI will independently rebuild the artifact from the tag and
+            verify the recorded hashes before this can merge.
