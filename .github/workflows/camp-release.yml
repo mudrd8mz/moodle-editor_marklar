@@ -8,7 +8,7 @@ on:
 env:
   CAMP_INDEX_REPO: camp-registry/camp-index
   COMPONENT: editor_marklar
-  SUPPORTED_MOODLE: "4.2,4.3,4.4,4.5"
+  SUPPORTED_MOODLE: ""
 
 jobs:
   publish:
