@@ -110,6 +110,20 @@ class marklar_texteditor extends texteditor {
             'monospace' => !empty(get_user_preferences('editor_marklar/monospace')),
         ];
 
+        $linkoptions = $fpoptions['link'] ?? null;
+        $filemanagementenabled = $options['enable_filemanagement'] ?? true;
+        if ($filemanagementenabled && !empty($linkoptions->itemid) && !empty($options['maxfiles'])) {
+            $initparams['filemanageroptions'] = [
+                'itemid' => (int) $linkoptions->itemid,
+                'context' => $initparams['contextid'],
+                'maxbytes' => (int) ($options['maxbytes'] ?? 0),
+                'areamaxbytes' => (int) ($options['areamaxbytes'] ?? FILE_AREA_MAX_BYTES_UNLIMITED),
+                'maxfiles' => (int) $options['maxfiles'],
+                'subdirs' => (int) ($options['subdirs'] ?? 0),
+                'return_types' => (int) ($options['return_types'] ?? FILE_INTERNAL),
+            ];
+        }
+
         $PAGE->requires->js_call_amd('editor_marklar/editor', 'init', [$initparams]);
 
         // If we passed the $fpoptions via init's parameters, debugging warning
