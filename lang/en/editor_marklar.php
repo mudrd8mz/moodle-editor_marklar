@@ -25,8 +25,10 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['filemanager'] = 'File manager';
 $string['insertimage'] = 'Insert image';
 $string['insertlink'] = 'Insert file';
+$string['managefiles'] = 'Manage files';
 $string['pluginname'] = 'Marklar';
 $string['preferences'] = 'Marklar editor preferences';
 $string['preferencesediting'] = 'Editing options';

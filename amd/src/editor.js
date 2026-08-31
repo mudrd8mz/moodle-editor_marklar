@@ -16,6 +16,8 @@
 /**
  * @module      editor_marklar/editor
  * @copyright   2016 David Mudrak <david@moodle.com>
+ * @copyright   2022 Stevani Andolo <stevani@hotmail.com.au>
+ * @copyright   2026 Oleksandr Kulkov
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 define([
@@ -25,9 +27,13 @@ define([
         'core/log',
         'core/ajax',
         'core/event',
+        'core/modal',
+        'core/modal_events',
+        'core/templates',
+        'core/config',
         'editor_marklar/filepicker',
         'editor_marklar/imagepaster',
-], function($, Y, str, log, ajax, event, filepicker, ImagePaster) {
+], function($, Y, str, log, ajax, event, Modal, ModalEvents, Templates, Config, filepicker, ImagePaster) {
 
     "use strict";
 
@@ -171,6 +177,7 @@ define([
         self.editpanel.append('<span data-marklar-placeholder="syntax" />');
         self.editpanel.append('<span data-marklar-placeholder="insert-image" />');
         self.editpanel.append('<span data-marklar-placeholder="insert-file" />');
+        self.editpanel.append('<span data-marklar-placeholder="manage-files" />');
     };
 
     /**
@@ -217,6 +224,57 @@ define([
                     self.insertFileButton = button;
                 });
             }
+            if ("filemanageroptions" in self.initparams) {
+                str.get_string("managefiles", "editor_marklar").done(function(strmanagefiles) {
+                    var button = $('<button class="btn btn-default" data-marklar-widget="manage-files" />');
+                    button.text(strmanagefiles);
+                    button.click(function(e) {
+                        e.preventDefault();
+                        self.showFileManager(strmanagefiles);
+                    });
+                    self.panel.find('[data-marklar-placeholder="manage-files"]').replaceWith(button);
+                    self.manageFilesButton = button;
+                });
+            }
+        });
+    };
+
+    /**
+     * Display Moodle's standard draft-area file manager.
+     *
+     * @param {String} title Modal title
+     * @return {Promise}
+     */
+    MarklarEditor.prototype.showFileManager = function(title) {
+        var url = new URL(Config.wwwroot + '/lib/editor/marklar/manage.php');
+        var options = this.initparams.filemanageroptions;
+
+        Object.keys(options).forEach(function(key) {
+            url.searchParams.append(key, options[key]);
+        });
+
+        return Modal.create({
+            large: true,
+            title: title,
+            body: Templates.render('editor_marklar/filemanager', {
+                src: url.toString(),
+                title: title,
+            }),
+            removeOnClose: true,
+            show: true,
+        }).then(function(modal) {
+            modal.getRoot().on(ModalEvents.bodyRendered, function() {
+                var iframe = modal.getRoot().find('[data-region="marklar-filemanager"]')[0];
+                if (iframe) {
+                    iframe.addEventListener('load', function() {
+                        var firstLink = iframe.contentDocument.querySelector('.fp-navbar a:not([disabled])');
+                        if (firstLink) {
+                            firstLink.focus();
+                        }
+                    });
+                }
+            });
+            return modal;
         });
     };
 
